@@ -3,5 +3,7 @@ Oprogramowanie dla linii lotniczej - projekt realizowany w trakcie studiów, z z
 
 # Runnig application
 Zeby uruchomić applikację. wykonaj:
+ 
   dla backendu  : gradle task -> application -> bootRun
+ 
   dla frontendu : $> npm start
