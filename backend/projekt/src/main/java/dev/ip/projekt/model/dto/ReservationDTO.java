@@ -1,4 +1,4 @@
 package dev.ip.projekt.model.dto;
 
-public class RezerwationDTO {
+public class ReservationDTO {
 }
