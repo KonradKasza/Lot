@@ -1,4 +1,7 @@
 package dev.ip.projekt.repository;
 
-public class RezerwationDAO {
+import dev.ip.projekt.model.entity.Reservation;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RezerwationDAO extends JpaRepository<Reservation, Long> {
 }

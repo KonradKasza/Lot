@@ -12,7 +12,7 @@ const Register = () => {
         const userData = { username, email, password };
 
         try {
-            const response = await fetch("http://localhost:8081/api/register", {
+            const response = await fetch("http://localhost:8080/api/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(userData),
@@ -34,7 +34,7 @@ const Register = () => {
 
     return (
         <div style={{ padding: 20 }}>
-            <h2>Register</h2>
+            <h2>Registration</h2>
             <form onSubmit={handleRegister}>
                 <input
                     type="text"
