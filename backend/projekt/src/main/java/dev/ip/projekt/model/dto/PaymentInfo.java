@@ -3,7 +3,7 @@ package dev.ip.projekt.model.dto;
 import java.sql.Timestamp;
 
 public class PaymentInfo {
-    private String reservationId;
+    private Long reservationId;
     private String userName;
     private String userSurname;
     private long value;
@@ -14,7 +14,7 @@ public class PaymentInfo {
     public PaymentInfo() {
     }
 
-    public PaymentInfo(String reservationId, String userName, String userSurname, long value, String currency, Timestamp date, String cardNumber) {
+    public PaymentInfo(Long reservationId, String userName, String userSurname, long value, String currency, Timestamp date, String cardNumber) {
         this.reservationId = reservationId;
         this.userName = userName;
         this.userSurname = userSurname;
@@ -64,12 +64,12 @@ public class PaymentInfo {
         this.date = date;
     }
 
-    public String getReservationId() {
+    public Long getReservationId() {
         return reservationId;
     }
 
-    public void setReservationId(String reservationId) {
-        reservationId = reservationId;
+    public void setReservationId(Long reservationId) {
+        this.reservationId = reservationId;
     }
 
     public String getCardNumber() {

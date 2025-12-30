@@ -2,6 +2,7 @@ package dev.ip.projekt.controllers;
 
 import dev.ip.projekt.model.dto.*;
 import dev.ip.projekt.model.entity.Flights;
+import dev.ip.projekt.model.entity.Reservation;
 import dev.ip.projekt.repository.FlightDAO;
 import dev.ip.projekt.service.FlightService;
 import dev.ip.projekt.service.PaymentService;
@@ -50,8 +51,8 @@ public class RezerwationCtrl {
 
     // get all my rezerwations
     @GetMapping("/get_my_reservations") // todo
-    public ResponseEntity<?> get_my_reservations() {
-        return ResponseEntity.ok("");
+    public ResponseEntity<List<Reservation>> get_my_reservations() {
+        return ResponseEntity.ok(reservationService.getUserReservations(1L));
     }
 
     // ok

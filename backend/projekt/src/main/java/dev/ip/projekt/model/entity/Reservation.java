@@ -27,6 +27,21 @@ public class Reservation {
 
     private String sit;
 
+    public Reservation() {
+    }
+
+    public Reservation(Long id, Long userId, Long flightId, ReservationStatus reservationStatus, Timestamp dateOfCreation, Timestamp dateOfModification, Long totalCost, Long reservationCode, String sit) {
+        this.id = id;
+        this.userId = userId;
+        this.flightId = flightId;
+        this.reservationStatus = reservationStatus;
+        this.dateOfCreation = dateOfCreation;
+        this.dateOfModification = dateOfModification;
+        this.totalCost = totalCost;
+        this.reservationCode = reservationCode;
+        this.sit = sit;
+    }
+
     public Long getId() {
         return id;
     }
@@ -112,4 +127,6 @@ public class Reservation {
                 ", sit='" + sit + '\'' +
                 '}';
     }
+
+
 }

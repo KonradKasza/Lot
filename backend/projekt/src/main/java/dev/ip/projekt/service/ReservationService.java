@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class ReservationService {
@@ -45,5 +46,9 @@ public class ReservationService {
         } else {
             return ResponseEntity.ok(ApiResponce.makeFailure("payment failed"));
         }
+    }
+
+    public List<Reservation> getUserReservations(Long userId) {
+        return reservationDAO.findByUserId(userId);
     }
 }
