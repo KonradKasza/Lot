@@ -3,12 +3,26 @@ package dev.ip.projekt.model.dto;
 import java.sql.Timestamp;
 
 public class PaymentInfo {
-    private String Id;
+    private String reservationId;
     private String userName;
     private String userSurname;
     private long value;
     private String currency; // USD, PLN, etc
     private Timestamp date;
+    private String cardNumber;
+
+    public PaymentInfo() {
+    }
+
+    public PaymentInfo(String reservationId, String userName, String userSurname, long value, String currency, Timestamp date, String cardNumber) {
+        this.reservationId = reservationId;
+        this.userName = userName;
+        this.userSurname = userSurname;
+        this.value = value;
+        this.currency = currency;
+        this.date = date;
+        this.cardNumber = cardNumber;
+    }
 
     public String getUserName() {
         return userName;
@@ -51,17 +65,25 @@ public class PaymentInfo {
     }
 
     public String getReservationId() {
-        return Id;
+        return reservationId;
     }
 
-    public void setReservationId(String Id) {
-        Id = Id;
+    public void setReservationId(String reservationId) {
+        reservationId = reservationId;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
     }
 
     @Override
     public String toString() {
         return "PaymentInfo{" +
-                "Id='" + Id + '\'' +
+                "reservationId='" + reservationId + '\'' +
                 ", userName='" + userName + '\'' +
                 ", userSurname='" + userSurname + '\'' +
                 ", value=" + value +
