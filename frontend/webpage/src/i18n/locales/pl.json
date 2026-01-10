@@ -1,0 +1,88 @@
+{
+    "navbar": {
+        "flights": "Loty",
+        "faq": "FAQ",
+        "myBookings": "Moje Rezerwacje",
+        "login": "Zaloguj się",
+        "logout": "Wyloguj się",
+        "signup": "Utwórz konto"
+    },
+    "home": {
+        "title": "Witaj w LOT Airlines",
+        "subtitle": "Zarezerwuj swój lot i odkryj świat",
+        "searchFlights": "Szukaj Lotów",
+        "back": "Wróć"
+    },
+    "search": {
+        "title": "Szukaj lotu",
+        "roundtrip": "Lot w dwie strony",
+        "oneWay": "Let w jedną stronę",
+        "departureCountry": "Kraj Wylotu",
+        "departureCity": "Miasto Wylotu",
+        "arrivalCountry": "Kraj Przylotu",
+        "arrivalCity": "Miasto Przylotu",
+        "departureDate": "Data Wylotu",
+        "returnDate": "Data Powrotu",
+        "selectCountry": "Wybierz kraj...",
+        "selectCity": "Wybierz miasto...",
+        "button": "Szukaj Lotów",
+        "errors": {
+            "requiredFields": "Proszę uzupełnić wszystkie wymagane pola"
+        }
+    },
+    "faq": {
+        "title": "Często Zadawane Pytania",
+        "q1": "Jak zarezerwować lot?",
+        "a1": "Aby zarezerwować lot, użyj naszego narzędzia wyszukiwania na stronie głównej. Wybierz miasta wylotu i przylotu, wybierz daty podróży i kliknij 'Szukaj Lotów'. Wybierz preferowany lot i przejdź do płatności.",
+        "q2": "Jakie są zasady rezygnacji z rezerwacji?",
+        "a2": "Możesz anulować rezerwację do 24 godzin przed wylotem i otrzymać pełny zwrot pieniędzy. Anulowanie w ciągu 24 godzin przed wylotem może podlegać opłacie za rezygnację.",
+        "q3": "Jak zarządzać moją rezerwacją?",
+        "a3": "Możesz zarządzać swoją rezerwacją na stronie 'Moje Rezerwacje'. Tam możesz przeglądać szczegóły, zmienić miejsca, dodać bagaż lub anulować rezerwację w razie potrzeby."
+    },
+    "login": {
+        "title": "Zaloguj się",
+        "subtitle": "Dostęp do Twoich rezerwacji i konta",
+        "email": "Adres Email",
+        "password": "Hasło",
+        "button": "Zaloguj się",
+        "loggingIn": "Logowanie...",
+        "forgotPassword": "Zapomniałeś hasła?",
+        "signup": "Utwórz konto",
+        "error": "Logowanie nie powiodło się. Spróbuj ponownie."
+    },
+    "register": {
+        "title": "Utwórz Konto",
+        "subtitle": "Dołącz do nas i zarezerwuj swój następny lot",
+        "username": "Nazwa użytkownika",
+        "usernamePlaceholder": "Wybierz nazwę użytkownika",
+        "email": "Adres Email",
+        "password": "Hasło",
+        "confirmPassword": "Potwierdź Hasło",
+        "button": "Utwórz Konto",
+        "creating": "Tworzenie konta...",
+        "haveAccount": "Masz już konto?",
+        "login": "Zaloguj się tutaj",
+        "errors": {
+            "usernameRequired": "Nazwa użytkownika jest wymagana",
+            "emailRequired": "Email jest wymagany",
+            "passwordRequired": "Hasło jest wymagane",
+            "passwordTooShort": "Hasło musi mieć co najmniej 6 znaków",
+            "passwordMismatch": "Hasła się nie zgadzają",
+            "registrationFailed": "Rejestracja nie powiodła się. Spróbuj ponownie."
+        }
+    },
+    "bookings": {
+        "title": "Moje Rezerwacje",
+        "date": "Data",
+        "time": "Godzina",
+        "passenger": "Pasażer",
+        "viewDetails": "Wyświetl Szczegóły",
+        "cancel": "Anuluj Rezerwację",
+        "noBookings": "Nie masz aktywnych rezerwacji. Zarezerwuj lot, aby zacząć!",
+        "status": {
+            "confirmed": "Potwierdzono",
+            "pending": "Oczekujące",
+            "cancelled": "Anulowano"
+        }
+    }
+}

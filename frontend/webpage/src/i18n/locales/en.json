@@ -1,0 +1,88 @@
+{
+    "navbar": {
+        "flights": "Flights",
+        "faq": "FAQ",
+        "myBookings": "My Bookings",
+        "login": "Log In",
+        "logout": "Log Out",
+        "signup": "Sign Up"
+    },
+    "home": {
+        "title": "Welcome to LOT Airlines",
+        "subtitle": "Book your flight and explore the world",
+        "searchFlights": "Search Flights",
+        "back": "Back"
+    },
+    "search": {
+        "title": "Find Your Flight",
+        "roundtrip": "Round Trip",
+        "oneWay": "One Way",
+        "departureCountry": "Departure Country",
+        "departureCity": "Departure City",
+        "arrivalCountry": "Arrival Country",
+        "arrivalCity": "Arrival City",
+        "departureDate": "Departure Date",
+        "returnDate": "Return Date",
+        "selectCountry": "Select a country...",
+        "selectCity": "Select a city...",
+        "button": "Search Flights",
+        "errors": {
+            "requiredFields": "Please fill in all required fields"
+        }
+    },
+    "faq": {
+        "title": "Frequently Asked Questions",
+        "q1": "How can I book a flight?",
+        "a1": "To book a flight, use our search tool on the home page. Select your departure and arrival cities, choose your travel dates, and click 'Search Flights'. Select your preferred flight and proceed to payment.",
+        "q2": "What is your cancellation policy?",
+        "a2": "You can cancel your booking up to 24 hours before departure for a full refund. Cancellations made within 24 hours of departure may be subject to cancellation fees.",
+        "q3": "How do I manage my booking?",
+        "a3": "You can manage your booking by visiting 'My Bookings' page. There you can view details, change seats, add baggage, or cancel your reservation if needed."
+    },
+    "login": {
+        "title": "Log In",
+        "subtitle": "Access your bookings and account",
+        "email": "Email Address",
+        "password": "Password",
+        "button": "Log In",
+        "loggingIn": "Logging in...",
+        "forgotPassword": "Forgot Password?",
+        "signup": "Sign Up",
+        "error": "Login failed. Please try again."
+    },
+    "register": {
+        "title": "Create Account",
+        "subtitle": "Join us and book your next flight",
+        "username": "Username",
+        "usernamePlaceholder": "Choose a username",
+        "email": "Email Address",
+        "password": "Password",
+        "confirmPassword": "Confirm Password",
+        "button": "Create Account",
+        "creating": "Creating account...",
+        "haveAccount": "Already have an account?",
+        "login": "Log in here",
+        "errors": {
+            "usernameRequired": "Username is required",
+            "emailRequired": "Email is required",
+            "passwordRequired": "Password is required",
+            "passwordTooShort": "Password must be at least 6 characters",
+            "passwordMismatch": "Passwords do not match",
+            "registrationFailed": "Registration failed. Please try again."
+        }
+    },
+    "bookings": {
+        "title": "My Bookings",
+        "date": "Date",
+        "time": "Time",
+        "passenger": "Passenger",
+        "viewDetails": "View Details",
+        "cancel": "Cancel Booking",
+        "noBookings": "You have no active bookings. Book a flight to get started!",
+        "status": {
+            "confirmed": "Confirmed",
+            "pending": "Pending",
+            "cancelled": "Cancelled"
+        }
+    }
+}

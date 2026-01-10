@@ -1,0 +1,116 @@
+.loginContainer {
+    min-height: calc(100vh - 60px);
+    background: linear-gradient(135deg, #073590 0%, #0952b8 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.loginBox {
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 400px;
+}
+
+.loginBox h1 {
+    color: #073590;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 2rem;
+}
+
+.loginBox p {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 0.95rem;
+}
+
+.formGroup {
+    margin-bottom: 20px;
+}
+
+.formGroup label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.formGroup input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.formGroup input:focus {
+    outline: none;
+    border-color: #073590;
+    box-shadow: 0 0 0 3px rgba(7, 53, 144, 0.1);
+}
+
+.formGroup input::placeholder {
+    color: #aaa;
+}
+
+.errorMessage {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    border: 1px solid #f5c6cb;
+}
+
+.submitButton {
+    width: 100%;
+    padding: 12px;
+    background-color: #f1c40f;
+    color: #073590;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.submitButton:hover:not(:disabled) {
+    background-color: #f9e79f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(241, 196, 15, 0.3);
+}
+
+.submitButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.links {
+    text-align: center;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.links a {
+    color: #073590;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.links a:hover {
+    color: #f1c40f;
+    text-decoration: underline;
+}
