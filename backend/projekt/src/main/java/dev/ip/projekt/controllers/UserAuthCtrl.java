@@ -6,6 +6,8 @@ import dev.ip.projekt.model.dto.UserRegistrationDTO;
 import dev.ip.projekt.model.entity.UserAccount;
 import dev.ip.projekt.service.UserService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import dev.ip.projekt.model.dto.JwtResponse;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,11 +29,19 @@ public class UserAuthCtrl {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<?> login(@RequestBody UserLoginDTO dto) {
-        return userService.login(dto).map(user -> {
-            String token = jwtService.generateToken(user.getEmail());
-            return ResponseEntity.ok(token);
-        })
-                .orElse(ResponseEntity.status(401).body("Niepoprawne dane logowania"));
+    public ResponseEntity<JwtResponse> login(@RequestBody UserLoginDTO dto) {
+
+        return userService.login(dto)
+                .map(user -> {
+                    String token = jwtService.generateToken(user.getEmail());
+                    return ResponseEntity.ok(new JwtResponse(token));
+                })
+                .orElseGet(() -> {
+                    JwtResponse response = new JwtResponse();
+                    response.setStatus(JwtResponse.Status.ERROR);
+                    response.setMessage("Niepoprawne dane logowania");
+                    return ResponseEntity.status(401).body(response);
+                });
     }
+
 }

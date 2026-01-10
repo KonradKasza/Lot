@@ -3,6 +3,7 @@ package dev.ip.projekt.model.dto;
 public class ApiResponce {
     private Boolean success;
     private String message;
+    private String status;
 
     public ApiResponce() {
         this(true, "ok");
@@ -44,6 +45,17 @@ public class ApiResponce {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    public void setStatus(String status) { this.status = status; }
+
+
+    public static ApiResponce makeUnauthorized() {
+        ApiResponce res = new ApiResponce();
+        res.setStatus("ERROR");
+        res.setMessage("Nieautoryzowany dostęp");
+        return res;
+    }
+
 
     @Override
     public String toString() {
