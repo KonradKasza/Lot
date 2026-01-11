@@ -16,5 +16,5 @@ CREATE TABLE IF NOT EXISTS airports (
 COPY airports(airport_id, name, city, country, iata, icao, latitude, longitude, altitude, timezone)
 FROM '/import/airports.csv'
 DELIMITER ',' 
-CSV HEADER;
+CSV HEADER
 ENCODING 'UTF8';
