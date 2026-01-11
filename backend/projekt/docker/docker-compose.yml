@@ -1,0 +1,13 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: project_db
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: lotdb
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: ip2026
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d:z
+      - ./data:/import:z
