@@ -1,3 +1,5 @@
+package dev.ip.projekt.security;
+
 import dev.ip.projekt.service.JwtService;
 import dev.ip.projekt.security.JwtFilter;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +16,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, JwtService jwtService) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, JwtService jwtService, JwtFilter filter) throws Exception {
 
         http
                 .csrf(csrf -> csrf.disable())
@@ -23,7 +25,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/login", "/api/register", "/api/get_all_flights").permitAll()
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(new JwtFilter(jwtService), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

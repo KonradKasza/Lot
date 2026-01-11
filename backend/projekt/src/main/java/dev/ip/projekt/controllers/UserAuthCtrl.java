@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000") // allow React dev server
+@CrossOrigin(origins = "http://localhost:5173") // allow React dev server
 public class UserAuthCtrl {
     private final UserService userService;
     private final JwtService jwtService;
@@ -24,12 +24,15 @@ public class UserAuthCtrl {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<UserAccount> register(@RequestBody UserRegistrationDTO dto) {
+        System.out.println("registering : " + dto.toString());
         UserAccount saved = userService.register(dto);
         return ResponseEntity.ok(saved);
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<JwtResponse> login(@RequestBody UserLoginDTO dto) {
+
+        System.out.println("login : " + dto.toString());
 
         return userService.login(dto)
                 .map(user -> {

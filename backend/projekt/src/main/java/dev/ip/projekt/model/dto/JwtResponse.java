@@ -17,4 +17,19 @@ public class JwtResponse {
     public void setStatus(Status status) { this.status = status; }
     public void setMessage(String message) { this.message = message; }
 
+    public void setJwt(String jwt) {
+        this.jwt = jwt;
+    }
+
+    public String getJwt() {
+        return jwt;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
 }

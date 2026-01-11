@@ -18,6 +18,10 @@ public class UserAccount {
     @Column(nullable = false)
     private String password;
 
+    public UserAccount() {
+        this("", "", "");
+    }
+
     public UserAccount(String username, String email, String password) {
         this.username = username;
         this.email = email;

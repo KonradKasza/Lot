@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000") // allow React dev server
+@CrossOrigin(origins = "http://localhost:5173") // allow React dev server
 public class RezerwationCtrl {
     private final FlightService flightService;
     private final PaymentService paymentService;
@@ -52,6 +52,7 @@ public class RezerwationCtrl {
     // just print/return all available flights // ok
     @GetMapping("/get_all_flights")
     public List<Flights> getAllFlights() {
+        System.out.println("getting all flights");
         List<Flights> l = flightService.findAll();
         return l;
     }
@@ -68,11 +69,13 @@ public class RezerwationCtrl {
     // get all my rezerwations
     @GetMapping("/get_my_reservations")
     public ResponseEntity<List<Reservation>> get_my_reservations(Authentication auth) {
+        System.out.println("getting reservations");
         if (auth == null) {
             return ResponseEntity.status(401).build();
         }
 
         String email = auth.getName();
+        System.out.println("from : " + email);
         Long userId = userService.findUserIdByEmail(email);
 
         List<Reservation> reservations = reservationService.getUserReservations(userId);
