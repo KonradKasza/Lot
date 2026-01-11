@@ -32,4 +32,11 @@ public class UserService{
     public Optional<UserAccount> login(UserLoginDTO dto) {
         return userDAO.findByEmail(dto.getEmail()).filter(user -> passwordEncoder.matches(dto.getPassword(), user.getPassword()));
     }
+
+    public Long findUserIdByEmail(String email) {
+        return userDAO.findByEmail(email)
+                .map(UserAccount::getId)
+                .orElse(null);
+    }
+
 }

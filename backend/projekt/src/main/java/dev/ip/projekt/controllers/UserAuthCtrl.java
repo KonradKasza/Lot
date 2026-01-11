@@ -6,11 +6,13 @@ import dev.ip.projekt.model.dto.UserRegistrationDTO;
 import dev.ip.projekt.model.entity.UserAccount;
 import dev.ip.projekt.service.UserService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import dev.ip.projekt.model.dto.JwtResponse;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000") // allow React dev server
+@CrossOrigin(origins = "http://localhost:5173") // allow React dev server
 public class UserAuthCtrl {
     private final UserService userService;
     private final JwtService jwtService;
@@ -22,16 +24,27 @@ public class UserAuthCtrl {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<UserAccount> register(@RequestBody UserRegistrationDTO dto) {
+        System.out.println("registering : " + dto.toString());
         UserAccount saved = userService.register(dto);
         return ResponseEntity.ok(saved);
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<?> login(@RequestBody UserLoginDTO dto) {
-        return userService.login(dto).map(user -> {
-            String token = jwtService.generateToken(user.getEmail());
-            return ResponseEntity.ok(token);
-        })
-                .orElse(ResponseEntity.status(401).body("Niepoprawne dane logowania"));
+    public ResponseEntity<JwtResponse> login(@RequestBody UserLoginDTO dto) {
+
+        System.out.println("login : " + dto.toString());
+
+        return userService.login(dto)
+                .map(user -> {
+                    String token = jwtService.generateToken(user.getEmail());
+                    return ResponseEntity.ok(new JwtResponse(token));
+                })
+                .orElseGet(() -> {
+                    JwtResponse response = new JwtResponse();
+                    response.setStatus(JwtResponse.Status.ERROR);
+                    response.setMessage("Niepoprawne dane logowania");
+                    return ResponseEntity.status(401).body(response);
+                });
     }
+
 }

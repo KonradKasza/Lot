@@ -5,10 +5,24 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Service;
 import java.security.Key;
 import java.util.Date;
+import java.util.Base64;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
+
 
 @Service
 public class JwtService{
-    private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    @Value("${jwt.secret}")
+    private String secretBase64;
+
+    private Key key;
+
+    @PostConstruct
+    public void init() {
+        byte[] keyBytes = Base64.getDecoder().decode(secretBase64);
+        key = Keys.hmacShaKeyFor(keyBytes);
+    }
+
     private final long EXPIRATION = 1000 * 60 * 20; //20 min.
 
     public String generateToken(String email){
@@ -16,7 +30,7 @@ public class JwtService{
                 .setSubject(email)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
-                .signWith(key)
+                .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
 

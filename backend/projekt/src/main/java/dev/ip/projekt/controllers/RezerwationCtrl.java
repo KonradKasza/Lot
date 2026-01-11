@@ -1,5 +1,4 @@
 package dev.ip.projekt.controllers;
-
 import dev.ip.projekt.model.dto.*;
 import dev.ip.projekt.model.entity.Flights;
 import dev.ip.projekt.model.entity.Reservation;
@@ -7,53 +6,82 @@ import dev.ip.projekt.repository.FlightDAO;
 import dev.ip.projekt.service.FlightService;
 import dev.ip.projekt.service.PaymentService;
 import dev.ip.projekt.service.ReservationService;
+import dev.ip.projekt.service.UserService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import dev.ip.projekt.model.dto.JwtResponse;
 
 import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000") // allow React dev server
+@CrossOrigin(origins = "http://localhost:5173") // allow React dev server
 public class RezerwationCtrl {
     private final FlightService flightService;
     private final PaymentService paymentService;
     private final ReservationService reservationService;
+    private final UserService userService;
 
     public RezerwationCtrl(
             FlightService flightService,
             PaymentService paymentService,
-            ReservationService reservationService
+            ReservationService reservationService,
+            UserService userService
             ) {
         this.flightService = flightService;
         this.paymentService = paymentService;
         this.reservationService = reservationService;
+        this.userService = userService;
     }
 
-    @PutMapping("/reserve_sit") // ok
-    public ResponseEntity<?> reserve_sit(@RequestBody ReservationRequestDTO dto) {
+    @PutMapping("/reserve_sit")
+    public ResponseEntity<?> reserve_sit(@RequestBody ReservationRequestDTO dto, Authentication auth) {
+        if (auth == null) {
+            return ResponseEntity.status(401).body("Nie jesteś zalogowany");
+        }
+
+        String email = auth.getName();
+        Long userId = userService.findUserIdByEmail(email);
+
+        dto.getReservationDTO().setUserId(userId);
+
         return reservationService.reserveSit(dto.getReservationDTO(), dto.getPaymentInfo());
     }
-
     // just print/return all available flights // ok
     @GetMapping("/get_all_flights")
     public List<Flights> getAllFlights() {
+        System.out.println("getting all flights");
         List<Flights> l = flightService.findAll();
         return l;
     }
 
     // returns list of flights that connect two selected airports
-    @GetMapping("/plan_journey") // note : no time to implement this one
-    public ResponseEntity<ApiResponce> plan_journey(@RequestBody JourneyDTO dto) {
+    @GetMapping("/plan_journey")
+    public ResponseEntity<ApiResponce> plan_journey(@RequestBody JourneyDTO dto, Authentication auth) {
+        if (auth == null) {
+            return ResponseEntity.status(401).body(ApiResponce.makeUnauthorized());
+        }
         return ResponseEntity.ok(ApiResponce.makeDefaultFailure());
     }
 
     // get all my rezerwations
-    @GetMapping("/get_my_reservations") // todo
-    public ResponseEntity<List<Reservation>> get_my_reservations() {
-        return ResponseEntity.ok(reservationService.getUserReservations(1L));
+    @GetMapping("/get_my_reservations")
+    public ResponseEntity<List<Reservation>> get_my_reservations(Authentication auth) {
+        System.out.println("getting reservations");
+        if (auth == null) {
+            return ResponseEntity.status(401).build();
+        }
+
+        String email = auth.getName();
+        System.out.println("from : " + email);
+        Long userId = userService.findUserIdByEmail(email);
+
+        List<Reservation> reservations = reservationService.getUserReservations(userId);
+        return ResponseEntity.ok(reservations);
     }
+
 
     // ok
     // shouldn't expose payment as separate api for client to call using frontend because it can cause
