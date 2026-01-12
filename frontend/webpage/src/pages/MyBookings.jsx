@@ -1,10 +1,10 @@
 import { useTranslation } from 'react-i18next';
+import FooterBar from '../components/FooterBar';
 import styles from './MyBookings.module.css';
 
 function MyBookings() {
     const { t } = useTranslation();
 
-    // Example booking data
     const bookings = [
         {
             id: 1,
@@ -19,68 +19,71 @@ function MyBookings() {
     ];
 
     return (
-    <div className={styles.bookingsPage}>
+        <div>
+            <div className={styles.bookingsPage}>
 
-        <div className={styles.bookingsContainer}>
-            <h1>{t('bookings.title')}</h1>
+                <div className={styles.bookingsContainer}>
+                    <h1>{t('bookings.title')}</h1>
 
-            {bookings.length > 0 ? (
-                <div className={styles.bookingsList}>
-                    {bookings.map((booking) => (
-                        <div key={booking.id} className={styles.bookingCard}>
-                            <div className={styles.bookingHeader}>
-                                <div className={styles.flightInfo}>
-                                    <h3>{booking.flightNumber}</h3>
-                                    <p className={styles.route}>
-                                        {booking.from} → {booking.to}
-                                    </p>
-                                </div>
-                                <div
-                                    className={`${styles.status} ${styles[booking.status]}`}
-                                >
-                                    {t(`bookings.status.${booking.status}`)}
-                                </div>
-                            </div>
+                    {bookings.length > 0 ? (
+                        <div className={styles.bookingsList}>
+                            {bookings.map((booking) => (
+                                <div key={booking.id} className={styles.bookingCard}>
+                                    <div className={styles.bookingHeader}>
+                                        <div className={styles.flightInfo}>
+                                            <h3>{booking.flightNumber}</h3>
+                                            <p className={styles.route}>
+                                                {booking.from} → {booking.to}
+                                            </p>
+                                        </div>
+                                        <div
+                                            className={`${styles.status} ${styles[booking.status]}`}
+                                        >
+                                            {t(`bookings.status.${booking.status}`)}
+                                        </div>
+                                    </div>
 
-                            <div className={styles.bookingDetails}>
-                                <div className={styles.detailItem}>
-                                    <span className={styles.label}>
-                                        {t('bookings.date')}:
-                                    </span>
-                                    <span>{booking.date}</span>
-                                </div>
-                                <div className={styles.detailItem}>
-                                    <span className={styles.label}>
-                                        {t('bookings.time')}:
-                                    </span>
-                                    <span>{booking.time}</span>
-                                </div>
-                                <div className={styles.detailItem}>
-                                    <span className={styles.label}>
-                                        {t('bookings.passenger')}:
-                                    </span>
-                                    <span>{booking.passenger}</span>
-                                </div>
-                            </div>
+                                    <div className={styles.bookingDetails}>
+                                        <div className={styles.detailItem}>
+                                            <span className={styles.label}>
+                                                {t('bookings.date')}:
+                                            </span>
+                                            <span>{booking.date}</span>
+                                        </div>
+                                        <div className={styles.detailItem}>
+                                            <span className={styles.label}>
+                                                {t('bookings.time')}:
+                                            </span>
+                                            <span>{booking.time}</span>
+                                        </div>
+                                        <div className={styles.detailItem}>
+                                            <span className={styles.label}>
+                                                {t('bookings.passenger')}:
+                                            </span>
+                                            <span>{booking.passenger}</span>
+                                        </div>
+                                    </div>
 
-                            <div className={styles.bookingActions}>
-                                <button className={styles.btnSecondary}>
-                                    {t('bookings.viewDetails')}
-                                </button>
-                                <button className={styles.btnDanger}>
-                                    {t('bookings.cancel')}
-                                </button>
-                            </div>
+                                    <div className={styles.bookingActions}>
+                                        <button className={styles.btnSecondary}>
+                                            {t('bookings.viewDetails')}
+                                        </button>
+                                        <button className={styles.btnDanger}>
+                                            {t('bookings.cancel')}
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
-                    ))}
+                    ) : (
+                        <div className={styles.noBookings}>
+                            <p>{t('bookings.noBookings')}</p>
+                        </div>
+                    )}
                 </div>
-            ) : (
-                <div className={styles.noBookings}>
-                    <p>{t('bookings.noBookings')}</p>
-                </div>
-            )}
+                <FooterBar />
+            </div>
         </div>
-    </div>
     );
 }
 

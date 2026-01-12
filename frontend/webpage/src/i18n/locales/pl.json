@@ -10,25 +10,7 @@
     "home": {
         "title": "Witaj w LOT Airlines",
         "subtitle": "Zarezerwuj swój lot i odkryj świat",
-        "searchFlights": "Szukaj Lotów",
-        "back": "Wróć"
-    },
-    "search": {
-        "title": "Szukaj lotu",
-        "roundtrip": "Lot w dwie strony",
-        "oneWay": "Let w jedną stronę",
-        "departureCountry": "Kraj Wylotu",
-        "departureCity": "Miasto Wylotu",
-        "arrivalCountry": "Kraj Przylotu",
-        "arrivalCity": "Miasto Przylotu",
-        "departureDate": "Data Wylotu",
-        "returnDate": "Data Powrotu",
-        "selectCountry": "Wybierz kraj...",
-        "selectCity": "Wybierz miasto...",
-        "button": "Szukaj Lotów",
-        "errors": {
-            "requiredFields": "Proszę uzupełnić wszystkie wymagane pola"
-        }
+        "searchFlights": "Szukaj Lotów"
     },
     "faq": {
         "title": "Często Zadawane Pytania",
@@ -50,27 +32,6 @@
         "signup": "Utwórz konto",
         "error": "Logowanie nie powiodło się. Spróbuj ponownie."
     },
-    "register": {
-        "title": "Utwórz Konto",
-        "subtitle": "Dołącz do nas i zarezerwuj swój następny lot",
-        "username": "Nazwa użytkownika",
-        "usernamePlaceholder": "Wybierz nazwę użytkownika",
-        "email": "Adres Email",
-        "password": "Hasło",
-        "confirmPassword": "Potwierdź Hasło",
-        "button": "Utwórz Konto",
-        "creating": "Tworzenie konta...",
-        "haveAccount": "Masz już konto?",
-        "login": "Zaloguj się tutaj",
-        "errors": {
-            "usernameRequired": "Nazwa użytkownika jest wymagana",
-            "emailRequired": "Email jest wymagany",
-            "passwordRequired": "Hasło jest wymagane",
-            "passwordTooShort": "Hasło musi mieć co najmniej 6 znaków",
-            "passwordMismatch": "Hasła się nie zgadzają",
-            "registrationFailed": "Rejestracja nie powiodła się. Spróbuj ponownie."
-        }
-    },
     "bookings": {
         "title": "Moje Rezerwacje",
         "date": "Data",
@@ -83,6 +44,39 @@
             "confirmed": "Potwierdzono",
             "pending": "Oczekujące",
             "cancelled": "Anulowano"
+        }
+    },
+
+    "footer": {
+        "rights": "© LOT. Wszelkie prawa zastrzeżone.",
+        "terms": "Warunki użytkowania",
+        "privacy": "Polityka prywatności"
+    },
+    "register": {
+        "title" : "Rejestracja",
+        "subtitle" : "Dołącz do nas i zarezerwuj lot!",
+        "username" : "Nazwa użytkownika",
+        "email" : "Adres Email",
+        "password" : "Hasło",
+        "confirmPassword" : "Potwierdź hasło",
+        "button" :"Zaloguj się",
+        "haveAccount" : "Masz już konto?",
+        "login" : "Zaloguj się",
+        "usernamePlaceholder" : "Wprowadź nazwę użytkownika"
+    },
+    "bookings": {
+        "title": "Moje rezerwacje",
+        "noBookings": "Nie znaleziono rezerwacji.",
+        "date": "Data",
+        "time": "Godzina",
+        "passenger": "Pasażer",
+        "viewDetails": "Szczegóły",
+        "cancel": "Anuluj",
+        "status": {
+        "STATUS": "Status",
+        "CONFIRMED": "Potwierdzona",
+        "PENDING": "Oczekująca",
+        "CANCELLED": "Anulowana"
         }
     }
 }
