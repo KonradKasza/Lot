@@ -31,7 +31,7 @@ public class ReservationService {
         res.setSit(reservationDTO.getSit());
         res.setReservationCode(111111L); // no idea what this is supposed to be so pla
         res.setReservationStatus(ReservationStatus.UNPAYED);
-        res.setTotalCost(1000L); // fix later
+        res.setTotalCost(paymentInfo.getValue()); // fix later
         res.setFlightId(reservationDTO.getFlightId());
         res.setDateOfCreation(Timestamp.valueOf(LocalDateTime.now()));
         res.setDateOfModification(Timestamp.valueOf(LocalDateTime.now()));
