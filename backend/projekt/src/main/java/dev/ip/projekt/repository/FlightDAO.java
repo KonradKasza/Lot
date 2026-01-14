@@ -9,4 +9,5 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public interface FlightDAO extends JpaRepository<Flights, Long> {
+	List<Flights> findByStartAirport(String startAirport);
 }

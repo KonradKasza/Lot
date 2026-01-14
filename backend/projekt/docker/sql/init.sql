@@ -18,3 +18,11 @@ FROM '/import/airports.csv'
 DELIMITER ',' 
 CSV HEADER
 ENCODING 'UTF8';
+
+
+DELETE FROM airports 
+WHERE 
+    iata IS NULL 
+    OR name LIKE '%Base%' 
+    OR name LIKE '%Military%'
+    OR name LIKE '%military%';

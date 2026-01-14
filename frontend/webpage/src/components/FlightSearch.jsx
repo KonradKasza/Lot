@@ -1,28 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './FlightSearch.module.css';
-
-// Placeholder do testowania, todo: połączyć to z bazą danych
-const COUNTRIES_DATA = {
-    en: {
-        'Poland': ['Warsaw (WAW)', 'Krakow (KRK)', 'Wroclaw (WRO)', 'Gdansk (GDN)', 'Poznan (POZ)'],
-        'United Kingdom': ['London (LHR)', 'Manchester (MAN)', 'Birmingham (BHX)', 'Edinburgh (EDI)', 'Glasgow (GLA)'],
-        'Germany': ['Berlin (BER)', 'Munich (MUC)', 'Frankfurt (FRA)', 'Cologne (CGN)', 'Hamburg (HAM)'],
-        'France': ['Paris (CDG)', 'Nice (NCE)', 'Lyon (LYS)', 'Marseille (MRS)', 'Toulouse (TLS)'],
-        'Italy': ['Rome (FCO)', 'Milan (MXP)', 'Venice (VCE)', 'Florence (FLR)', 'Naples (NAP)'],
-        'Spain': ['Madrid (MAD)', 'Barcelona (BCN)', 'Malaga (AGP)', 'Valencia (VLC)', 'Seville (SVQ)'],
-        'Netherlands': ['Amsterdam (AMS)', 'Rotterdam (RTM)', 'Eindhoven (EIN)', 'Groningen (GRQ)'],
-    },
-    pl: {
-        'Polska': ['Warszawa (WAW)', 'Kraków (KRK)', 'Wrocław (WRO)', 'Gdańsk (GDN)', 'Poznań (POZ)'],
-        'Wielka Brytania': ['Londyn (LHR)', 'Manchester (MAN)', 'Birmingham (BHX)', 'Edynburg (EDI)', 'Glasgow (GLA)'],
-        'Niemcy': ['Berlin (BER)', 'Monachium (MUC)', 'Frankfurt (FRA)', 'Kolonia (CGN)', 'Hamburg (HAM)'],
-        'Francja': ['Paryż (CDG)', 'Nicea (NCE)', 'Lyon (LYS)', 'Marsylia (MRS)', 'Tuluza (TLS)'],
-        'Włochy': ['Rzym (FCO)', 'Mediolan (MXP)', 'Wenecja (VCE)', 'Florencja (FLR)', 'Neapol (NAP)'],
-        'Hiszpania': ['Madryt (MAD)', 'Barcelona (BCN)', 'Málaga (AGP)', 'Walencja (VLC)', 'Sewilla (SVQ)'],
-        'Holandia': ['Amsterdam (AMS)', 'Rotterdam (RTM)', 'Eindhoven (EIN)', 'Groningen (GRQ)'],
-    }
-};
+import {
+    getCountries,
+    getAirportsByCountry,
+    getDatesByStartAirport,
+    searchResults,
+} from '../services/flightsService';
 
 function FlightSearch() {
     const { t, i18n } = useTranslation();
@@ -34,25 +18,46 @@ function FlightSearch() {
     const [departureDate, setDepartureDate] = useState('');
     const [returnDate, setReturnDate] = useState('');
 
-    const countryData = i18n.language === 'pl' ? COUNTRIES_DATA.pl : COUNTRIES_DATA.en;
-    const countries = Object.keys(countryData).sort();
-    const departureCities = departureCountry ? countryData[departureCountry] : [];
-    const arrivalCities = arrivalCountry ? countryData[arrivalCountry] : [];
+    const [countries, setCountries] = useState([]);
+    const [departureAirports, setDepartureAirports] = useState([]);
+    const [arrivalAirports, setArrivalAirports] = useState([]);
+    const [availableDates, setAvailableDates] = useState([]);
 
-    const handleSearch = (e) => {
+    useEffect(() => {
+        const fetchCountries = async () => {
+            try {
+                const data = await getCountries();
+                console.log('Dane z API (kraje):', data);
+                setCountries(Array.isArray(data) ? data.sort() : []);
+            } catch (err) {
+                console.error('Błąd API:', err);
+                setCountries([]);
+            }
+        };
+        fetchCountries();
+    }, [i18n.language]);
+
+    const departureCities = departureAirports;
+    const arrivalCities = arrivalAirports;
+
+    const handleSearch = async (e) => {
         e.preventDefault();
         if (!departureCity || !arrivalCity || !departureDate) {
             alert(t('search.errors.requiredFields'));
             return;
         }
-        console.log({
-            tripType,
-            departureCity,
-            arrivalCity,
-            departureDate,
-            returnDate: tripType === 'roundtrip' ? returnDate : null,
-        });
-        // TODO: wyszukiwanie z tymi danymi
+
+        const startId = parseInt(departureCity, 10);
+        const date = departureDate;
+
+        try {
+            const results = await searchResults(startId, date);
+            console.log('Search results:', results);
+            // TODO: forward results to parent or display them in UI
+        } catch (err) {
+            console.error(err);
+            alert(t('search.errors.searchFailed') || 'Search failed');
+        }
     };
 
     return (
@@ -89,8 +94,20 @@ function FlightSearch() {
                         <select
                             value={departureCountry}
                             onChange={(e) => {
-                                setDepartureCountry(e.target.value);
+                                const country = e.target.value;
+                                setDepartureCountry(country);
                                 setDepartureCity('');
+                                setAvailableDates([]);
+                                if (!country) {
+                                    setDepartureAirports([]);
+                                    return;
+                                }
+                                getAirportsByCountry(country)
+                                    .then((data) => setDepartureAirports(Array.isArray(data) ? data : []))
+                                    .catch((err) => {
+                                        console.error(err);
+                                        setDepartureAirports([]);
+                                    });
                             }}
                             className={styles.select}
                         >
@@ -107,14 +124,27 @@ function FlightSearch() {
                         <label>{t('search.departureCity')}</label>
                         <select
                             value={departureCity}
-                            onChange={(e) => setDepartureCity(e.target.value)}
+                            onChange={(e) => {
+                                const val = e.target.value;
+                                setDepartureCity(val);
+                                setAvailableDates([]);
+                                setDepartureDate('');
+                                if (!val) return;
+                                const id = parseInt(val, 10);
+                                getDatesByStartAirport(id)
+                                    .then((data) => setAvailableDates(Array.isArray(data) ? data : []))
+                                    .catch((err) => {
+                                        console.error(err);
+                                        setAvailableDates([]);
+                                    });
+                            }}
                             disabled={!departureCountry}
                             className={styles.select}
                         >
                             <option value="">{t('search.selectCity')}</option>
-                            {departureCities.map((city) => (
-                                <option key={city} value={city}>
-                                    {city}
+                            {departureCities.map((a) => (
+                                <option key={a.airport_id} value={a.airport_id}>
+                                    {a.name} ({a.city})
                                 </option>
                             ))}
                         </select>
@@ -125,8 +155,19 @@ function FlightSearch() {
                         <select
                             value={arrivalCountry}
                             onChange={(e) => {
-                                setArrivalCountry(e.target.value);
+                                const country = e.target.value;
+                                setArrivalCountry(country);
                                 setArrivalCity('');
+                                if (!country) {
+                                    setArrivalAirports([]);
+                                    return;
+                                }
+                                getAirportsByCountry(country)
+                                    .then((data) => setArrivalAirports(Array.isArray(data) ? data : []))
+                                    .catch((err) => {
+                                        console.error(err);
+                                        setArrivalAirports([]);
+                                    });
                             }}
                             className={styles.select}
                         >
@@ -148,9 +189,9 @@ function FlightSearch() {
                             className={styles.select}
                         >
                             <option value="">{t('search.selectCity')}</option>
-                            {arrivalCities.map((city) => (
-                                <option key={city} value={city}>
-                                    {city}
+                            {arrivalCities.map((a) => (
+                                <option key={a.airport_id} value={a.airport_id}>
+                                    {a.name} ({a.city})
                                 </option>
                             ))}
                         </select>
@@ -158,13 +199,19 @@ function FlightSearch() {
 
                     <div className={styles.fieldGroup}>
                         <label>{t('search.departureDate')}</label>
-                        <input
-                            type="date"
+                        <select
                             value={departureDate}
                             onChange={(e) => setDepartureDate(e.target.value)}
-                            className={styles.input}
+                            className={styles.select}
                             required
-                        />
+                        >
+                            <option value="">{t('search.selectDate')}</option>
+                            {availableDates.map((d) => (
+                                <option key={d} value={d}>
+                                    {d}
+                                </option>
+                            ))}
+                        </select>
                     </div>
 
                     {tripType === 'roundtrip' && (
