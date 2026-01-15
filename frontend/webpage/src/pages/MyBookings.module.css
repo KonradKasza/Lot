@@ -1,14 +1,17 @@
+* {
+    box-sizing: border-box;
+}
 .bookingsContainer {
     max-width: 900px;
     margin: 0 auto;
     padding: 40px 20px;
-    min-height: calc(100vh - 60px);
+    min-height: calc(100vh - 129px);
 }
 
 .bookingsPage {
     max-width: 100%;
 
-    background: linear-gradient(135deg, #073590 0%, #0952b8 100%);
+    background: linear-gradient(135deg, #041a4a 0%, #07397e 100%);
 }
 .bookingsContainer h1 {
     color: #ffffff;
@@ -89,6 +92,7 @@
 .detailItem {
     display: flex;
     flex-direction: column;
+    color:#041a4a;
 }
 
 .label {

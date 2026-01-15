@@ -1,0 +1,248 @@
+.pageContainer {
+    min-height: calc(100vh - 80px);
+    padding: 40px 20px;
+    background-color: #f5f5f5;
+}
+
+.requestContainer {
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.requestContainer h1 {
+    color: #073590;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+.subtitle {
+    color: #666;
+    text-align: center;
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+}
+
+.requestContainer h2 {
+    color: #073590;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #073590;
+    padding-bottom: 10px;
+}
+
+/* Flight Summary Section */
+.flightSummary {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid #073590;
+    margin-bottom: 40px;
+}
+
+.flightInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.infoRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.infoRow:last-child {
+    border-bottom: none;
+}
+
+.label {
+    font-weight: 600;
+    color: #333;
+    min-width: 150px;
+}
+
+.value {
+    color: #666;
+    text-align: right;
+}
+
+.priceValue {
+    color: #2ecc71;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.routeInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: white;
+    border-radius: 6px;
+    margin: 15px 0;
+}
+
+.airport {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.iata {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #073590;
+}
+
+.airportName {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 5px;
+}
+
+.city {
+    font-size: 0.85rem;
+    color: #999;
+    margin-top: 2px;
+}
+
+.arrow {
+    margin: 0 20px;
+    font-size: 1.5rem;
+    color: #073590;
+}
+
+.detailsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+/* Form Section */
+.form {
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 8px;
+    margin-top: 40px;
+}
+
+.formGroup {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.formGroup label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.formGroup input {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.formGroup input:focus {
+    outline: none;
+    border-color: #073590;
+    box-shadow: 0 0 0 3px rgba(7, 53, 144, 0.1);
+}
+
+.formGroup input::placeholder {
+    color: #bbb;
+}
+
+.formActions {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.submitButton {
+    flex: 1;
+    padding: 14px 20px;
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.submitButton:hover:not(:disabled) {
+    background-color: #27ae60;
+    transform: translateY(-2px);
+}
+
+.submitButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.cancelButton {
+    flex: 1;
+    padding: 14px 20px;
+    background-color: #e0e0e0;
+    color: #333;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.cancelButton:hover {
+    background-color: #d0d0d0;
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .requestContainer {
+        padding: 20px;
+    }
+
+    .requestContainer h1 {
+        font-size: 1.5rem;
+    }
+
+    .routeInfo {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .arrow {
+        transform: rotate(90deg);
+        margin: 0;
+    }
+
+    .formActions {
+        flex-direction: column;
+    }
+
+    .infoRow {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .value {
+        text-align: left;
+    }
+}

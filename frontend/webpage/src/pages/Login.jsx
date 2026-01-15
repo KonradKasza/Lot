@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { authService } from '../services/authService';
+//import { authService } from '../services/authService';
+import { authService } from '../services/mockAuthService';
 import FooterBar from '../components/FooterBar';
 import styles from './Login.module.css';
 
@@ -19,12 +20,14 @@ function Login() {
         try {
             const token = await authService.login(email, password);
             localStorage.setItem('authToken', token);
-            // Redirect to home
+            localStorage.setItem('userEmail', email);
             window.location.hash = '#/';
+            window.location.reload()
         } catch (err) {
             setError(err.message || t('login.error'));
         } finally {
             setIsLoading(false);
+            
         }
     };
 
