@@ -6,9 +6,9 @@ public class FlightResultDTO {
     private long flightId;
     private Timestamp departure;
     private Timestamp arrival;
-    private Integer startAirportId;
+    private String startAirportId;
     private String startAirportName;
-    private Integer endAirportId;
+    private String endAirportId;
     private String endAirportName;
 
     private Long routeId;
@@ -28,14 +28,14 @@ public class FlightResultDTO {
     public Timestamp getArrival() { return arrival; }
     public void setArrival(Timestamp arrival) { this.arrival = arrival; }
 
-    public Integer getStartAirportId() { return startAirportId; }
-    public void setStartAirportId(Integer startAirportId) { this.startAirportId = startAirportId; }
+    public String getStartAirportId() { return startAirportId; }
+    public void setStartAirportId(String startAirportId) { this.startAirportId = startAirportId; }
 
     public String getStartAirportName() { return startAirportName; }
     public void setStartAirportName(String startAirportName) { this.startAirportName = startAirportName; }
 
-    public Integer getEndAirportId() { return endAirportId; }
-    public void setEndAirportId(Integer endAirportId) { this.endAirportId = endAirportId; }
+    public String getEndAirportId() { return endAirportId; }
+    public void setEndAirportId(String endAirportId) { this.endAirportId = endAirportId; }
 
     public String getEndAirportName() { return endAirportName; }
     public void setEndAirportName(String endAirportName) { this.endAirportName = endAirportName; }

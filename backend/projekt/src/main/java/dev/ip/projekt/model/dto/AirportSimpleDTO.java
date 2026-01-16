@@ -1,20 +1,20 @@
 package dev.ip.projekt.model.dto;
 
 public class AirportSimpleDTO {
-    private Integer id;
+    private String id;
     private String name;
     private String city;
 
     public AirportSimpleDTO() {}
 
-    public AirportSimpleDTO(Integer id, String name, String city) {
+    public AirportSimpleDTO(String id, String name, String city) {
         this.id = id;
         this.name = name;
         this.city = city;
     }
 
-    public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }

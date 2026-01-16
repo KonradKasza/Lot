@@ -1,8 +1,7 @@
 package dev.ip.projekt.controllers;
 import dev.ip.projekt.model.dto.*;
-import dev.ip.projekt.model.entity.Flights;
-import dev.ip.projekt.model.entity.Reservation;
-import dev.ip.projekt.repository.FlightDAO;
+import dev.ip.projekt.model.entity_new.Flight;
+import dev.ip.projekt.model.entity_new.Reservation;
 import dev.ip.projekt.service.FlightService;
 import dev.ip.projekt.service.PaymentService;
 import dev.ip.projekt.service.ReservationService;
@@ -10,9 +9,7 @@ import dev.ip.projekt.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import dev.ip.projekt.model.dto.JwtResponse;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -43,7 +40,7 @@ public class RezerwationCtrl {
         }
 
         String email = auth.getName();
-        Long userId = userService.findUserIdByEmail(email);
+        String userId = userService.findUserIdByEmail(email);
 
         dto.getReservationDTO().setUserId(userId);
 
@@ -51,9 +48,9 @@ public class RezerwationCtrl {
     }
     // just print/return all available flights // ok
     @GetMapping("/get_all_flights")
-    public List<Flights> getAllFlights() {
+    public List<Flight> getAllFlights() {
         System.out.println("getting all flights");
-        List<Flights> l = flightService.findAll();
+        List<Flight> l = flightService.findAll();
         return l;
     }
 
@@ -76,7 +73,7 @@ public class RezerwationCtrl {
 
         String email = auth.getName();
         System.out.println("from : " + email);
-        Long userId = userService.findUserIdByEmail(email);
+        String userId = userService.findUserIdByEmail(email);
 
         List<Reservation> reservations = reservationService.getUserReservations(userId);
         return ResponseEntity.ok(reservations);

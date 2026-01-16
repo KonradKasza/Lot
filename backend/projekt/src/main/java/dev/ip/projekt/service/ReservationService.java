@@ -3,13 +3,15 @@ package dev.ip.projekt.service;
 import dev.ip.projekt.model.dto.ApiResponce;
 import dev.ip.projekt.model.dto.PaymentInfo;
 import dev.ip.projekt.model.dto.ReservationDTO;
-import dev.ip.projekt.model.entity.Reservation;
-import dev.ip.projekt.model.entity.ReservationStatus;
+import dev.ip.projekt.model.entity_new.Reservation;
+import dev.ip.projekt.model.entity_new.ReservationStatus;
 import dev.ip.projekt.repository.ReservationDAO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -27,17 +29,17 @@ public class ReservationService {
 
 
         Reservation res = new Reservation();
-        res.setUserId(reservationDTO.getUserId());
-        res.setSit(reservationDTO.getSit());
-        res.setReservationCode(111111L); // no idea what this is supposed to be so pla
-        res.setReservationStatus(ReservationStatus.UNPAYED);
-        res.setTotalCost(paymentInfo.getValue()); // fix later
+        res.setAccountId(reservationDTO.getUserId());
+        res.setSeat(reservationDTO.getSit());
+        res.setReservationCode("111111"); // no idea what this is supposed to be so pla
+        res.setReservationStatus(ReservationStatus.UNPAYED.name());
+        res.setTotalPrice(BigDecimal.valueOf(paymentInfo.getValue())); // fix later
         res.setFlightId(reservationDTO.getFlightId());
-        res.setDateOfCreation(Timestamp.valueOf(LocalDateTime.now()));
-        res.setDateOfModification(Timestamp.valueOf(LocalDateTime.now()));
+        res.setCreationDate(LocalDate.now());
+        res.setModificationDate(LocalDate.now());
 
         boolean pay_res = paymentService.processPayment(paymentInfo);
-        if (pay_res) res.setReservationStatus(ReservationStatus.PAYED);
+        if (pay_res) res.setReservationStatus(ReservationStatus.PAYED.name());
 
         reservationDAO.save(res);
 
@@ -48,7 +50,7 @@ public class ReservationService {
         }
     }
 
-    public List<Reservation> getUserReservations(Long userId) {
-        return reservationDAO.findByUserId(userId);
+    public List<Reservation> getUserReservations(String userId) {
+        return reservationDAO.findByAccountId(userId);
     }
 }

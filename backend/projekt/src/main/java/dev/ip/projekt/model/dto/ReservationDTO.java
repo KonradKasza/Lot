@@ -1,27 +1,27 @@
 package dev.ip.projekt.model.dto;
 
 public class ReservationDTO {
-    private Long userId;
+    private String userId;
     private String sit; // A1, A12, B5 etc.
     private Long flightId;
 
     public ReservationDTO() {
-        this.userId = 1L;
+        this.userId = "Empty";
         this.sit = "sit";
         this.flightId = 1L;
     }
 
-    public ReservationDTO(Long userId, String sit, Long flightId) {
+    public ReservationDTO(String userId, String sit, Long flightId) {
         this.userId = userId;
         this.sit = sit;
         this.flightId = flightId;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

@@ -1,9 +1,9 @@
 package dev.ip.projekt.controllers;
 
+import dev.ip.projekt.model.entity_new.CustomerAccount;
 import dev.ip.projekt.service.JwtService;
 import dev.ip.projekt.model.dto.UserLoginDTO;
 import dev.ip.projekt.model.dto.UserRegistrationDTO;
-import dev.ip.projekt.model.entity.UserAccount;
 import dev.ip.projekt.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -23,9 +23,9 @@ public class UserAuthCtrl {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity<UserAccount> register(@RequestBody UserRegistrationDTO dto) {
+    public ResponseEntity<CustomerAccount> register(@RequestBody UserRegistrationDTO dto) {
         System.out.println("registering : " + dto.toString());
-        UserAccount saved = userService.register(dto);
+        CustomerAccount saved = userService.register(dto);
         return ResponseEntity.ok(saved);
     }
 
