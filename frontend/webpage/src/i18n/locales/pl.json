@@ -1,6 +1,7 @@
 {
     "navbar": {
         "flights": "Loty",
+        "flightSearch": "Wyszukaj Loty",
         "faq": "FAQ",
         "myBookings": "Moje Rezerwacje",
         "login": "Zaloguj się",
@@ -10,7 +11,8 @@
     "home": {
         "title": "Witaj w LOT Airlines",
         "subtitle": "Zarezerwuj swój lot i odkryj świat",
-        "searchFlights": "Szukaj Lotów"
+        "searchFlights": "Szukaj Lotów",
+        "back" : "Powrót"
     },
     "faq": {
         "title": "Często Zadawane Pytania",
@@ -37,46 +39,129 @@
         "date": "Data",
         "time": "Godzina",
         "passenger": "Pasażer",
+        "airline": "Linia Lotnicza",
+        "aircraft": "Samolot",
+        "duration": "Czas Trwania",
+        "price": "Cena",
         "viewDetails": "Wyświetl Szczegóły",
         "cancel": "Anuluj Rezerwację",
+        "cancelling": "Anulowanie...",
+        "confirmCancel": "Czy na pewno chcesz anulować tę rezerwację?",
+        "cancelError": "Nie udało się anulować rezerwacji. Spróbuj ponownie.",
+        "loading": "Ładowanie twoich rezerwacji...",
+        "loadError": "Nie udało się załadować rezerwacji. Spróbuj ponownie.",
         "noBookings": "Nie masz aktywnych rezerwacji. Zarezerwuj lot, aby zacząć!",
         "status": {
-            "confirmed": "Potwierdzono",
-            "pending": "Oczekujące",
-            "cancelled": "Anulowano"
+            "confirmed": "Potwierdzona",
+            "pending": "Oczekująca",
+            "cancelled": "Anulowana"
         }
     },
-
+    "register": {
+        "title": "Rejestracja",
+        "subtitle": "Dołącz do nas i zarezerwuj lot!",
+        "username": "Nazwa użytkownika",
+        "email": "Adres Email",
+        "password": "Hasło",
+        "confirmPassword": "Potwierdź hasło",
+        "button": "Zarejestruj się",
+        "haveAccount": "Masz już konto?",
+        "login": "Zaloguj się",
+        "usernamePlaceholder": "Wprowadź nazwę użytkownika",
+        "errors": {
+            "usernameRequired": "Nazwa użytkownika jest wymagana",
+            "emailRequired": "Email jest wymagany",
+            "passwordRequired": "Hasło jest wymagane",
+            "passwordTooShort": "Hasło musi mieć co najmniej 6 znaków",
+            "passwordMismatch": "Hasła nie są zgodne",
+            "registrationFailed": "Rejestracja nie powiodła się. Spróbuj ponownie."
+        }
+    },
+    "search": {
+        "title": "Wyszukaj Loty",
+        "roundtrip": "W dwie strony",
+        "oneWay": "W jedną stronę",
+        "departureState": "Stan Wylotu",
+        "departureCity": "Port Wylotu",
+        "arrivalState": "Stan Przylotu",
+        "arrivalCity": "Port Przylotu",
+        "departureDate": "Data Wylotu",
+        "returnDate": "Data Powrotu",
+        "selectState": "Wybierz Stan",
+        "selectCity": "Wybierz Port",
+        "selectDate": "Wybierz Datę",
+        "button": "Szukaj Lotów",
+        "errors": {
+            "requiredFields": "Proszę wypełnić wszystkie wymagane pola",
+            "searchFailed": "Wyszukiwanie nie powiodło się. Spróbuj ponownie."
+        }
+    },    "booking": {
+        "title": "Dostępne loty",
+        "subtitle": "Wybierz lot do rezerwacji",
+        "noFlights": "Brak dostępnych lotów dla wybranej trasy i daty.",
+        "backToSearch": "Powrót do wyszukiwania",
+        "flightNumber": "Numer lotu",
+        "departureDate": "Data odlotu",
+        "departureTime": "Godzina odlotu",
+        "arrivalTime": "Godzina przylotu",
+        "duration": "Czas lotu",
+        "distance": "Dystans",
+        "miles": "mil",
+        "aircraft": "Samolot",
+        "seatsAvailable": "Dostępne miejsca",
+        "price": "Cena",
+        "bookNow": "Zarezerwuj teraz"
+    },
+    "bookingRequest": {
+        "title": "Prośba o rezerwację",
+        "subtitle": "Uzupełnij szczegóły swojej rezerwacji",
+        "flightSummary": "Podsumowanie lotu",
+        "airline": "Linia lotnicza",
+        "passengerDetails": "Dane pasażera",
+        "fullName": "Pełne imię i nazwisko",
+        "fullNamePlaceholder": "Wpisz swoje pełne imię i nazwisko",
+        "email": "Adres e-mail",
+        "emailPlaceholder": "Wpisz swój adres e-mail",
+        "phone": "Numer telefonu",
+        "phonePlaceholder": "Wpisz swój numer telefonu",
+        "confirmBooking": "Potwierdź rezerwację",
+        "backToFlights": "Powrót do lotów",
+        "submitting": "Wysyłanie...",
+        "requiredFields": "Proszę wypełnić wszystkie wymagane pola",
+        "bookingConfirmed": "Rezerwacja potwierdzona z kodem potwierdzenia:",
+        "bookingFailed": "Rezerwacja nie powiodła się. Spróbuj ponownie."
+    },
+    "customerInfo": {
+        "title": "Informacje Klienta",
+        "subtitle": "Zarządzaj swoimi danymi osobowymi",
+        "firstName": "Imię",
+        "lastName": "Nazwisko",
+        "gender": "Płeć",
+        "age": "Wiek",
+        "phoneNumber": "Numer Telefonu",
+        "idNumber": "Numer ID",
+        "firstNamePlaceholder": "Wpisz swoje imię",
+        "lastNamePlaceholder": "Wpisz swoje nazwisko",
+        "selectGender": "Wybierz płeć",
+        "male": "Mężczyzna",
+        "female": "Kobieta",
+        "other": "Inne",
+        "agePlaceholder": "Wpisz swój wiek",
+        "phoneNumberPlaceholder": "Wpisz swój numer telefonu",
+        "idNumberPlaceholder": "Wpisz swój numer ID",
+        "edit": "Edytuj Informacje",
+        "save": "Zapisz Zmiany",
+        "saving": "Zapisywanie...",
+        "cancel": "Anuluj",
+        "loading": "Ładowanie twoich informacji...",
+        "loadError": "Nie udało się załadować informacji klienta",
+        "updateSuccess": "Twoje informacje zostały zaktualizowane pomyślnie",
+        "updateError": "Nie udało się zaktualizować informacji. Spróbuj ponownie.",
+        "goToBookings": "Przejdź do Moich Rezerwacji"
+    },
     "footer": {
         "rights": "© LOT. Wszelkie prawa zastrzeżone.",
         "terms": "Warunki użytkowania",
         "privacy": "Polityka prywatności"
-    },
-    "register": {
-        "title" : "Rejestracja",
-        "subtitle" : "Dołącz do nas i zarezerwuj lot!",
-        "username" : "Nazwa użytkownika",
-        "email" : "Adres Email",
-        "password" : "Hasło",
-        "confirmPassword" : "Potwierdź hasło",
-        "button" :"Zaloguj się",
-        "haveAccount" : "Masz już konto?",
-        "login" : "Zaloguj się",
-        "usernamePlaceholder" : "Wprowadź nazwę użytkownika"
-    },
-    "bookings": {
-        "title": "Moje rezerwacje",
-        "noBookings": "Nie znaleziono rezerwacji.",
-        "date": "Data",
-        "time": "Godzina",
-        "passenger": "Pasażer",
-        "viewDetails": "Szczegóły",
-        "cancel": "Anuluj",
-        "status": {
-        "STATUS": "Status",
-        "CONFIRMED": "Potwierdzona",
-        "PENDING": "Oczekująca",
-        "CANCELLED": "Anulowana"
-        }
     }
 }

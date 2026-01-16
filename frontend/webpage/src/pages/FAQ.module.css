@@ -1,11 +1,14 @@
+* {
+    box-sizing: border-box;
+}
 .faqPage {
-    background: linear-gradient(135deg, #07359A 0%, #0952b8 100%);
+    background: linear-gradient(135deg, #041a4a 0%, #07397e 100%);
 }
 .faqContainer {
     max-width: 800px;
     margin: 0 auto;
     padding: 40px 20px;
-    min-height: calc(100vh - 60px);
+    min-height: calc(100vh - 129px);
 }
 
 .faqContainer h1 {

@@ -1,0 +1,222 @@
+.pageContainer {
+    min-height: calc(100vh - 80px);
+    padding: 40px 20px;
+    background-color: #f5f5f5;
+}
+
+.bookingContainer {
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.bookingContainer h1 {
+    color: #073590;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 2rem;
+}
+
+.subtitle {
+    color: #666;
+    text-align: center;
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+}
+
+.noFlights {
+    color: #666;
+    text-align: center;
+    font-size: 1.1rem;
+    margin: 40px 0;
+}
+
+.flightsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.flightCard {
+    background-color: #f9f9f9;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 25px;
+    transition: all 0.3s ease;
+}
+
+.flightCard:hover {
+    box-shadow: 0 4px 12px rgba(7, 53, 144, 0.2);
+    border-color: #073590;
+}
+
+.flightHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.flightHeader h2 {
+    color: #073590;
+    font-size: 1.3rem;
+    margin: 0;
+}
+
+.airline {
+    color: #666;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.flightRoute {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 6px;
+}
+
+.airport {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+}
+
+.iata {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #073590;
+}
+
+.airportName {
+    font-size: 0.9rem;
+    color: #333;
+    font-weight: 500;
+}
+
+.city {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.arrow {
+    font-size: 2rem;
+    color: #f1c40f;
+    margin: 0 20px;
+}
+
+.flightDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.detailRow {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.detailRow:last-child {
+    border-bottom: none;
+}
+
+.label {
+    color: #666;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.value {
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.priceValue {
+    color: #073590;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.bookButton {
+    width: 100%;
+    padding: 14px;
+    background-color: #f1c40f;
+    color: #073590;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.bookButton:hover {
+    background-color: #f9e79f;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(241, 196, 15, 0.3);
+}
+
+.bookButton:active {
+    transform: translateY(0);
+}
+
+.backButton {
+    width: 100%;
+    max-width: 300px;
+    padding: 12px;
+    background-color: transparent;
+    color: #073590;
+    border: 2px solid #073590;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 30px auto 0;
+}
+
+.backButton:hover {
+    background-color: #073590;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .bookingContainer {
+        padding: 20px;
+    }
+
+    .bookingContainer h1 {
+        font-size: 1.5rem;
+    }
+
+    .flightsGrid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .flightRoute {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .arrow {
+        transform: rotate(90deg);
+        margin: 10px 0;
+    }
+}

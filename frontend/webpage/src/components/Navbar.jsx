@@ -29,28 +29,45 @@ function Navbar() {
 
     const handleLogout = () => {
         authService.logout();
-        navigate('/');
+        localStorage.removeItem('userEmail');
+        //navigate('/');
+        window.location.hash = '#/';
+        window.location.reload()
     };
+
+    const handleCustomerInfoClick = () => {
+        navigate('/customer-info');
+    };
+
+    const userEmail = localStorage.getItem('userEmail');
 
     return (
         <nav className={styles.navbar}>
             <div className={styles.container}>
                 <div className={styles.logoContainer}>
                     <button className={styles.logo} onClick={handleLogoClick}>
-                        LOT
+                        <img src="/logo.svg" alt="LOT Logo" className={styles.logoImage} />
+                        <span className={styles.logoText}>LOT</span>
                     </button>
                 </div>
                 <ul className={styles.navLinks}>
+                    <li>
+                        <button onClick={() => navigate('/search')} className={styles.link}>
+                            {t('navbar.flightSearch')}
+                        </button>
+                    </li>
                     <li>
                         <button onClick={() => navigate('/faq')} className={styles.link}>
                             {t('navbar.faq')}
                         </button>
                     </li>
-                    <li>
-                        <button onClick={() => navigate('/bookings')} className={styles.link}>
-                            {t('navbar.myBookings')}
-                        </button>
-                    </li>
+                    {isAuthenticated && (
+                        <li>
+                            <button onClick={() => navigate('/bookings')} className={styles.link}>
+                                {t('navbar.myBookings')}
+                            </button>
+                        </li>
+                    )}
                     <li className={styles.languageSelector}>
                         <button
                             className={styles.languageButton}
@@ -77,9 +94,14 @@ function Navbar() {
                     </li>
                     <li>
                         {isAuthenticated ? (
-                            <button className={styles.loginButton} onClick={handleLogout}>
-                                {t('navbar.logout')}
-                            </button>
+                            <div className={styles.authButtons}>
+                                <button className={styles.userInfoButton} onClick={handleCustomerInfoClick}>
+                                    Logged in as {userEmail}
+                                </button>
+                                <button className={styles.logoutButton} onClick={handleLogout}>
+                                    {t('navbar.logout')}
+                                </button>
+                            </div>
                         ) : (
                             <div className={styles.authButtons}>
                                 <button className={styles.loginButton} onClick={handleLoginClick}>
