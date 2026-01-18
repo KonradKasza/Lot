@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import FooterBar from '../components/FooterBar';
+import { bookingsService } from '../services/bookingsService';
 import styles from './BookingRequest.module.css';
 
 function BookingRequest() {
@@ -47,39 +48,58 @@ function BookingRequest() {
             return;
         }
 
+        // Check if user is logged in
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+            alert(t('bookingRequest.loginRequired'));
+            navigate('/login');
+            return;
+        }
+
+        // Check if customer info is complete
+        const customerInfoComplete = localStorage.getItem('customerInfoComplete');
+        if (!customerInfoComplete) {
+            alert(t('bookingRequest.customerInfoRequired'));
+            navigate('/customer-info');
+            return;
+        }
+
         setIsSubmitting(true);
         
         try {
-            // Simulate booking submission
+            // Prepare booking data for the backend
             const bookingData = {
-                ...formData,
-                flight_id: selectedFlight.flight_id,
-                booking_date: new Date().toISOString(),
-                status: 'confirmed',
-                confirmation_code: generateConfirmationCode(),
+                flightId: selectedFlight.flight_id,
+                passengerName: formData.passenger_name,
+                passengerEmail: formData.passenger_email,
+                passengerPhone: formData.passenger_phone,
+                seat: null, // Will be auto-assigned by backend
+                luggage: 'Standard',
+                fareId: 1, // Default fare
+                totalPrice: selectedFlight.price || 100.00
             };
 
+            // Call the booking service
+            const response = await bookingsService.createBooking(bookingData);
+            
             // Store booking confirmation
-            localStorage.setItem('bookingConfirmation', JSON.stringify(bookingData));
+            localStorage.setItem('bookingConfirmation', JSON.stringify(response));
             
             // Navigate to confirmation page or show success message
-            alert(`${t('bookingRequest.bookingConfirmed')} - ${bookingData.confirmation_code}`);
-            navigate('/search');
+            alert(`${t('bookingRequest.bookingConfirmed')} - ${response.reservationCode}`);
+            localStorage.removeItem('selectedFlight');
+            navigate('/bookings');
         } catch (err) {
             console.error('Error submitting booking:', err);
-            alert(t('bookingRequest.bookingFailed'));
+            if (err.message.includes('authenticated') || err.message.includes('401')) {
+                alert(t('bookingRequest.loginRequired'));
+                navigate('/login');
+            } else {
+                alert(t('bookingRequest.bookingFailed') + ': ' + err.message);
+            }
         } finally {
             setIsSubmitting(false);
         }
-    };
-
-    const generateConfirmationCode = () => {
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        let code = '';
-        for (let i = 0; i < 6; i++) {
-            code += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        return code;
     };
 
     if (!selectedFlight) {

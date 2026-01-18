@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-//import { authService } from '../services/authService';
-import { authService } from '../services/mockAuthService';
+import { authService } from '../services/authService';
 import FooterBar from '../components/FooterBar';
 import styles from './Login.module.css';
 

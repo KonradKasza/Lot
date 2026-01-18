@@ -23,6 +23,7 @@ public class BookingResponseDTO {
     private String ticketNumber;
     private String passengerName;
     private String passengerEmail;
+    private String passengerPhone;
 
     public BookingResponseDTO() {}
 
@@ -177,5 +178,13 @@ public class BookingResponseDTO {
 
     public void setPassengerEmail(String passengerEmail) {
         this.passengerEmail = passengerEmail;
+    }
+
+    public String getPassengerPhone() {
+        return passengerPhone;
+    }
+
+    public void setPassengerPhone(String passengerPhone) {
+        this.passengerPhone = passengerPhone;
     }
 }

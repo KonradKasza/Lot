@@ -22,7 +22,8 @@ public class BookingController {
     public ResponseEntity<?> createBooking(@RequestBody BookingRequestDTO request) {
         try {
             String userEmail = getCurrentUserEmail();
-            System.out.println("Creating booking for user: " + userEmail + ", flightId: " + request.getFlightId());
+            System.out.println("Creating booking for user: " + userEmail);
+            System.out.println("Request: flightId=" + request.getFlightId() + ", fareId=" + request.getFareId());
             BookingResponseDTO response = bookingService.createBooking(request, userEmail);
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
@@ -56,7 +57,8 @@ public class BookingController {
 
     private String getCurrentUserEmail() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !authentication.isAuthenticated()) {
+        System.out.println("Authentication: " + authentication);
+        if (authentication == null || !authentication.isAuthenticated() || "anonymousUser".equals(authentication.getPrincipal())) {
             throw new RuntimeException("User not authenticated");
         }
         return authentication.getName();

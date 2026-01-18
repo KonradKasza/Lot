@@ -90,6 +90,8 @@ function CustomerInfo() {
                 setCustomer(response.customer);
                 setIsEditing(false);
                 setSuccessMessage(t('customerInfo.updateSuccess'));
+                // Mark customer info as complete for booking validation
+                localStorage.setItem('customerInfoComplete', 'true');
                 setTimeout(() => setSuccessMessage(''), 3000);
             } else {
                 setError(response.error || t('customerInfo.updateError'));

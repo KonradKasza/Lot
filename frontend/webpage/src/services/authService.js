@@ -2,37 +2,64 @@ const API_BASE_URL = 'http://localhost:8080/api';
 
 export const authService = {
     login: async (email, password) => {
-        const response = await fetch(`${API_BASE_URL}/login`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-        });
+        try {
+            const response = await fetch(`${API_BASE_URL}/auth/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
 
-        if (!response.ok) {
-            const errorData = await response.text();
-            throw new Error(errorData || 'Login failed');
+            const text = await response.text();
+            if (!text) {
+                throw new Error('Empty response from server');
+            }
+
+            const data = JSON.parse(text);
+
+            if (!response.ok || data.status === 'ERROR') {
+                throw new Error(data.message || 'Login failed');
+            }
+
+            return data.jwt;
+        } catch (error) {
+            if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                throw new Error('Cannot connect to server. Is the backend running?');
+            }
+            throw error;
         }
-
-        return await response.text();
     },
 
     register: async (username, email, password) => {
-        const response = await fetch(`${API_BASE_URL}/register`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, email, password })
-        });
+        try {
+            const response = await fetch(`${API_BASE_URL}/auth/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, email, password })
+            });
 
-        if (!response.ok) {
-            const errorData = await response.text();
-            throw new Error(errorData || 'Registration failed');
+            const text = await response.text();
+            if (!text) {
+                throw new Error('Empty response from server');
+            }
+
+            const data = JSON.parse(text);
+
+            if (!response.ok || data.status === 'ERROR') {
+                throw new Error(data.message || 'Registration failed');
+            }
+
+            return { token: data.jwt };
+        } catch (error) {
+            if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                throw new Error('Cannot connect to server. Is the backend running?');
+            }
+            throw error;
         }
-
-        return await response.json();
     },
 
     logout: () => {
         localStorage.removeItem('authToken');
+        localStorage.removeItem('userEmail');
     },
 
     getToken: () => {
@@ -41,5 +68,10 @@ export const authService = {
 
     isAuthenticated: () => {
         return !!localStorage.getItem('authToken');
+    },
+
+    getAuthHeader: () => {
+        const token = localStorage.getItem('authToken');
+        return token ? { 'Authorization': `Bearer ${token}` } : {};
     }
 };

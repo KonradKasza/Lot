@@ -50,10 +50,10 @@ function Register() {
         setIsLoading(true);
 
         try {
-            const response = await authService.register(username, email, password);
-            const token = response.token;
-            localStorage.setItem('authToken', token);
-            navigate('/');
+            await authService.register(username, email, password);
+            // Redirect to login page after successful registration
+            window.location.hash = '#/login';
+            window.location.reload();
         } catch (err) {
             setError(err.message || t('register.errors.registrationFailed'));
         } finally {

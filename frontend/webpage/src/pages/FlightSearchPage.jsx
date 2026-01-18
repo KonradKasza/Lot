@@ -8,7 +8,7 @@ import {
     getDestinationStatesAndAirports,
     getAvailableDates,
     searchFlights,
-} from '../services/mockFlightsService';
+} from '../services/flightsService';
 
 function FlightSearchPage() {
     const { t } = useTranslation();
@@ -62,7 +62,7 @@ function FlightSearchPage() {
 
     // Handle departure airport selection
     const handleDepartureAirportChange = async (e) => {
-        const airportId = parseInt(e.target.value, 10);
+        const airportId = e.target.value;  // Keep as string (airport code like "LAX")
         setDepartureAirport(airportId);
         setArrivalState('');
         setArrivalAirport('');
@@ -93,7 +93,7 @@ function FlightSearchPage() {
 
     // Handle arrival airport selection
     const handleArrivalAirportChange = async (e) => {
-        const airportId = parseInt(e.target.value, 10);
+        const airportId = e.target.value;  // Keep as string (airport code like "JFK")
         setArrivalAirport(airportId);
         setAvailableDates([]);
         setDepartureDate('');
@@ -138,12 +138,13 @@ function FlightSearchPage() {
         }
     };
 
+    // Filter airports by state (state_id is a string like "California")
     const departureAirportsByState = departureState 
-        ? startAirports.filter(a => a.state_id === parseInt(departureState, 10))
+        ? startAirports.filter(a => a.state_id === departureState)
         : [];
     
     const arrivalAirportsByState = arrivalState
-        ? destinationAirports.filter(a => a.state_id === parseInt(arrivalState, 10))
+        ? destinationAirports.filter(a => a.state_id === arrivalState)
         : [];
 
     return (

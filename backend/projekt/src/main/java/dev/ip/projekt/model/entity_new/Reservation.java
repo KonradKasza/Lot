@@ -10,7 +10,7 @@ public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "reservation_id")
+    @Column(name = "reservation_id", nullable = false, insertable = false, updatable = false)
     public Long reservationId;
 
     @Column(name = "reservation_status", length = 20)

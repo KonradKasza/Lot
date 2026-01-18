@@ -4,10 +4,12 @@ import dev.ip.projekt.model.dto.BookingRequestDTO;
 import dev.ip.projekt.model.dto.BookingResponseDTO;
 import dev.ip.projekt.model.entity_new.CustomerAccount;
 import dev.ip.projekt.model.entity_new.Flight;
+import dev.ip.projekt.model.entity_new.Passenger;
 import dev.ip.projekt.model.entity_new.Reservation;
 import dev.ip.projekt.repository.AirportRepository;
 import dev.ip.projekt.repository.CustomerAccountRepository;
 import dev.ip.projekt.repository.FlightRepository;
+import dev.ip.projekt.repository.PassengerRepository;
 import dev.ip.projekt.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +35,9 @@ public class BookingService {
 
     @Autowired
     private CustomerAccountRepository customerAccountRepository;
+
+    @Autowired
+    private PassengerRepository passengerRepository;
 
     @Transactional
     public BookingResponseDTO createBooking(BookingRequestDTO request, String userEmail) {
@@ -74,8 +79,17 @@ public class BookingService {
         // Save the reservation
         Reservation savedReservation = reservationRepository.save(reservation);
 
+        // Save passenger information
+        Passenger passenger = new Passenger(
+            savedReservation.getReservationId(),
+            request.getPassengerName(),
+            request.getPassengerEmail(),
+            request.getPassengerPhone()
+        );
+        passengerRepository.save(passenger);
+
         // Build response
-        return buildBookingResponse(savedReservation, flight, request.getPassengerName(), request.getPassengerEmail());
+        return buildBookingResponse(savedReservation, flight, request.getPassengerName(), request.getPassengerEmail(), request.getPassengerPhone());
     }
 
     public List<BookingResponseDTO> getMyBookings(String userEmail) {
@@ -117,7 +131,7 @@ public class BookingService {
         return convertToBookingResponse(updatedReservation);
     }
 
-    private BookingResponseDTO buildBookingResponse(Reservation reservation, Flight flight, String passengerName, String passengerEmail) {
+    private BookingResponseDTO buildBookingResponse(Reservation reservation, Flight flight, String passengerName, String passengerEmail, String passengerPhone) {
         BookingResponseDTO response = new BookingResponseDTO();
         
         response.setReservationId(reservation.getReservationId());
@@ -130,6 +144,7 @@ public class BookingService {
         response.setTicketNumber(reservation.getTicketNumber());
         response.setPassengerName(passengerName);
         response.setPassengerEmail(passengerEmail);
+        response.setPassengerPhone(passengerPhone);
 
         // Flight info
         response.setFlightId(flight.getFlightId());
@@ -164,6 +179,13 @@ public class BookingService {
         response.setSeat(reservation.getSeat());
         response.setLuggage(reservation.getLuggage());
         response.setTicketNumber(reservation.getTicketNumber());
+
+        // Get passenger info from database
+        passengerRepository.findByReservationId(reservation.getReservationId()).ifPresent(passenger -> {
+            response.setPassengerName(passenger.getPassengerName());
+            response.setPassengerEmail(passenger.getPassengerEmail());
+            response.setPassengerPhone(passenger.getPassengerPhone());
+        });
 
         // Get flight info
         flightRepository.findById(reservation.getFlightId()).ifPresent(flight -> {

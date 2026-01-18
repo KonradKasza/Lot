@@ -146,3 +146,212 @@
 .noBookings p {
     font-size: 1.2rem;
 }
+.routeDetails {
+    color: #888;
+    margin: 2px 0 0 0;
+    font-size: 0.85rem;
+}
+
+.errorMessage {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 12px 20px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.btnSecondary:disabled,
+.btnDanger:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Boarding Pass Modal Styles */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.boardingPassModal {
+    position: relative;
+    max-width: 700px;
+    width: 100%;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.closeButton {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background-color: #dc3545;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001;
+    transition: background-color 0.2s;
+}
+
+.closeButton:hover {
+    background-color: #c82333;
+}
+
+.boardingPass {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.boardingPassHeader {
+    background: linear-gradient(135deg, #041a4a 0%, #073590 100%);
+    color: white;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.boardingPassHeader h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.boardingPassLabel {
+    background-color: #f1c40f;
+    color: #041a4a;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+}
+
+.boardingPassContent {
+    display: flex;
+    padding: 25px 30px;
+    gap: 30px;
+}
+
+.boardingPassLeft {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-right: 2px dashed #ddd;
+    padding-right: 30px;
+}
+
+.boardingPassRight {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.boardingPassRow {
+    display: flex;
+    gap: 30px;
+}
+
+.boardingPassField {
+    display: flex;
+    flex-direction: column;
+    min-width: 80px;
+}
+
+.fieldLabel {
+    font-size: 0.7rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.fieldValue {
+    font-size: 1rem;
+    color: #041a4a;
+    font-weight: 600;
+}
+
+.fieldSubValue {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.fieldValueLarge {
+    font-size: 1.8rem;
+    color: #073590;
+    font-weight: 700;
+}
+
+.qrCode {
+    width: 150px;
+    height: 150px;
+    border: 3px solid #041a4a;
+    border-radius: 8px;
+    padding: 5px;
+    background: white;
+}
+
+.qrLabel {
+    margin-top: 10px;
+    font-size: 0.75rem;
+    color: #666;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    .boardingPassContent {
+        flex-direction: column;
+    }
+
+    .boardingPassLeft {
+        border-right: none;
+        border-bottom: 2px dashed #ddd;
+        padding-right: 0;
+        padding-bottom: 20px;
+    }
+
+    .boardingPassRow {
+        flex-wrap: wrap;
+    }
+
+    .boardingPassRight {
+        padding-top: 20px;
+    }
+
+    .qrCode {
+        width: 120px;
+        height: 120px;
+    }
+}
