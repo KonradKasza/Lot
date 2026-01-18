@@ -1,0 +1,218 @@
+{
+  "common": {
+    "loading": "Ładowanie...",
+    "error": "Błąd",
+    "save": "Zapisz",
+    "cancel": "Anuluj",
+    "delete": "Usuń",
+    "edit": "Edytuj",
+    "add": "Dodaj",
+    "search": "Szukaj",
+    "actions": "Akcje",
+    "yes": "Tak",
+    "no": "Nie",
+    "confirm": "Potwierdź",
+    "close": "Zamknij",
+    "submit": "Wyślij",
+    "back": "Wstecz",
+    "next": "Dalej",
+    "previous": "Poprzedni",
+    "showing": "Wyświetlanie",
+    "of": "z",
+    "results": "wyników",
+    "noData": "Brak danych",
+    "confirmDelete": "Czy na pewno chcesz usunąć ten element?",
+    "deleteSuccess": "Pomyślnie usunięto",
+    "saveSuccess": "Pomyślnie zapisano",
+    "errorOccurred": "Wystąpił błąd"
+  },
+  "nav": {
+    "dashboard": "Panel główny",
+    "flights": "Loty",
+    "reservations": "Rezerwacje",
+    "customers": "Klienci",
+    "airplanes": "Samoloty",
+    "crews": "Załogi",
+    "crewMembers": "Członkowie załóg",
+    "airports": "Lotniska",
+    "adminUsers": "Administratorzy",
+    "adminOnly": "Tylko dla administratorów",
+    "logout": "Wyloguj",
+    "managementPanel": "Panel zarządzania"
+  },
+  "login": {
+    "title": "LOT Adminpanel",
+    "subtitle": "Zaloguj się do swojego konta",
+    "email": "Email",
+    "password": "Hasło",
+    "signIn": "Zaloguj się",
+    "signingIn": "Logowanie...",
+    "testCredentials": "Dane testowe",
+    "invalidCredentials": "Nieprawidłowy email lub hasło"
+  },
+  "dashboard": {
+    "title": "Panel główny",
+    "welcome": "Witaj w Panelu Administracji LOT",
+    "yourRole": "Twoja rola",
+    "roleDescriptions": {
+      "ADMIN": "Pełny dostęp do wszystkich funkcji systemu, w tym zarządzania użytkownikami",
+      "MANAGER": "Dostęp do lotów, rezerwacji i zarządzania klientami",
+      "WORKER": "Dostęp do lotów i rezerwacji"
+    },
+    "statistics": "Statystyki",
+    "quickActions": "Szybkie akcje",
+    "totalFlights": "Wszystkie loty",
+    "totalReservations": "Wszystkie rezerwacje",
+    "totalCustomers": "Wszyscy klienci",
+    "totalAirplanes": "Wszystkie samoloty",
+    "manageFlights": "Zarządzaj lotami",
+    "manageFlightsDesc": "Przeglądaj i edytuj rozkład lotów",
+    "viewReservations": "Przeglądaj rezerwacje",
+    "viewReservationsDesc": "Zarządzaj rezerwacjami klientów",
+    "customerData": "Dane klientów",
+    "customerDataDesc": "Dostęp do informacji o klientach"
+  },
+  "flights": {
+    "title": "Zarządzanie lotami",
+    "addFlight": "Dodaj lot",
+    "editFlight": "Edytuj lot",
+    "flightNumber": "Numer lotu",
+    "departure": "Wylot",
+    "arrival": "Przylot",
+    "departureTime": "Czas wylotu",
+    "arrivalTime": "Czas przylotu",
+    "status": "Status",
+    "airplane": "Samolot",
+    "crew": "Załoga",
+    "price": "Cena",
+    "availableSeats": "Dostępne miejsca",
+    "origin": "Miejsce wylotu",
+    "destination": "Miejsce docelowe",
+    "statuses": {
+      "SCHEDULED": "Zaplanowany",
+      "BOARDING": "Boarding",
+      "DEPARTED": "Wystartował",
+      "IN_FLIGHT": "W locie",
+      "LANDED": "Wylądował",
+      "CANCELLED": "Anulowany",
+      "DELAYED": "Opóźniony"
+    }
+  },
+  "reservations": {
+    "title": "Zarządzanie rezerwacjami",
+    "addReservation": "Dodaj rezerwację",
+    "editReservation": "Edytuj rezerwację",
+    "reservationId": "ID rezerwacji",
+    "customer": "Klient",
+    "flight": "Lot",
+    "seatNumber": "Numer miejsca",
+    "status": "Status",
+    "bookingDate": "Data rezerwacji",
+    "totalPrice": "Cena całkowita",
+    "cancelReservation": "Anuluj rezerwację",
+    "confirmCancel": "Czy na pewno chcesz anulować tę rezerwację?",
+    "statuses": {
+      "CONFIRMED": "Potwierdzona",
+      "PENDING": "Oczekująca",
+      "CANCELLED": "Anulowana",
+      "COMPLETED": "Zakończona"
+    }
+  },
+  "customers": {
+    "title": "Zarządzanie klientami",
+    "addCustomer": "Dodaj klienta",
+    "editCustomer": "Edytuj klienta",
+    "customerId": "ID klienta",
+    "firstName": "Imię",
+    "lastName": "Nazwisko",
+    "email": "Email",
+    "phone": "Telefon",
+    "address": "Adres",
+    "dateOfBirth": "Data urodzenia",
+    "passportNumber": "Numer paszportu",
+    "nationality": "Narodowość"
+  },
+  "airplanes": {
+    "title": "Zarządzanie samolotami",
+    "addAirplane": "Dodaj samolot",
+    "editAirplane": "Edytuj samolot",
+    "airplaneId": "ID samolotu",
+    "manufacturer": "Producent",
+    "model": "Model",
+    "capacity": "Pojemność",
+    "range": "Zasięg (km)",
+    "yearOfManufacture": "Rok produkcji",
+    "status": "Status",
+    "seats": "miejsc"
+  },
+  "crews": {
+    "title": "Zarządzanie załogami",
+    "addCrew": "Dodaj załogę",
+    "editCrew": "Edytuj załogę",
+    "crewId": "ID załogi",
+    "crewName": "Nazwa załogi",
+    "members": "Członkowie",
+    "viewMembers": "Zobacz członków",
+    "noMembers": "Brak przypisanych członków"
+  },
+  "crewMembers": {
+    "title": "Zarządzanie członkami załóg",
+    "addMember": "Dodaj członka załogi",
+    "editMember": "Edytuj członka załogi",
+    "memberId": "ID członka",
+    "firstName": "Imię",
+    "lastName": "Nazwisko",
+    "position": "Stanowisko",
+    "crew": "Załoga",
+    "positions": {
+      "CAPTAIN": "Kapitan",
+      "FIRST_OFFICER": "Pierwszy oficer",
+      "FLIGHT_ATTENDANT": "Steward/Stewardessa",
+      "PURSER": "Purser"
+    }
+  },
+  "airports": {
+    "title": "Zarządzanie lotniskami",
+    "addAirport": "Dodaj lotnisko",
+    "editAirport": "Edytuj lotnisko",
+    "airportId": "ID lotniska",
+    "name": "Nazwa",
+    "iataCode": "Kod IATA",
+    "city": "Miasto",
+    "country": "Kraj"
+  },
+  "adminUsers": {
+    "title": "Zarządzanie administratorami",
+    "addUser": "Dodaj administratora",
+    "editUser": "Edytuj administratora",
+    "userId": "ID użytkownika",
+    "username": "Nazwa użytkownika",
+    "email": "Email",
+    "fullName": "Imię i nazwisko",
+    "role": "Rola",
+    "password": "Hasło",
+    "confirmPassword": "Potwierdź hasło",
+    "roles": {
+      "ADMIN": "Administrator",
+      "MANAGER": "Menedżer",
+      "WORKER": "Pracownik"
+    }
+  },
+  "pagination": {
+    "first": "Pierwsza",
+    "last": "Ostatnia",
+    "previous": "Poprzednia",
+    "next": "Następna",
+    "page": "Strona",
+    "of": "z"
+  },
+  "table": {
+    "noResults": "Nie znaleziono wyników",
+    "loading": "Ładowanie danych..."
+  },
+  "language": {
+    "select": "Język",
+    "en": "English",
+    "pl": "Polski"
+  }
+}

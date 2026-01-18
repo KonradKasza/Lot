@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useAuth } from '../context/AuthContext'
 import './Dashboard.css'
 
 function Dashboard() {
+  const { t } = useTranslation()
   const { user } = useAuth()
   const [stats, setStats] = useState({
     totalFlights: 0,
@@ -48,23 +50,14 @@ function Dashboard() {
   }
 
   const getRoleDescription = (role) => {
-    switch (role) {
-      case 'ADMIN':
-        return 'Full system access - can manage all data and admin users'
-      case 'MANAGER':
-        return 'Can view and edit data, but cannot delete critical records'
-      case 'WORKER':
-        return 'Read-only access to all data'
-      default:
-        return ''
-    }
+    return t(`dashboard.roleDescriptions.${role}`)
   }
 
   return (
     <div className="dashboard">
       <div className="dashboard-header">
-        <h1>Dashboard</h1>
-        <p>Welcome back, {user?.fullName || user?.username}!</p>
+        <h1>{t('dashboard.title')}</h1>
+        <p>{t('dashboard.welcome')}, {user?.fullName || user?.username}!</p>
       </div>
 
       <div className="role-info-card">
@@ -72,7 +65,7 @@ function Dashboard() {
           <span className={`role-badge badge-${user?.role?.toLowerCase()}`}>
             {user?.role}
           </span>
-          <span className="role-title">Your Access Level</span>
+          <span className="role-title">{t('dashboard.yourRole')}</span>
         </div>
         <p className="role-description">{getRoleDescription(user?.role)}</p>
       </div>
@@ -82,7 +75,7 @@ function Dashboard() {
           <div className="stat-icon">✈️</div>
           <div className="stat-content">
             <div className="stat-value">{loading ? '...' : stats.totalFlights.toLocaleString()}</div>
-            <div className="stat-label">Total Flights</div>
+            <div className="stat-label">{t('dashboard.totalFlights')}</div>
           </div>
         </div>
 
@@ -90,7 +83,7 @@ function Dashboard() {
           <div className="stat-icon">📋</div>
           <div className="stat-content">
             <div className="stat-value">{loading ? '...' : stats.totalReservations.toLocaleString()}</div>
-            <div className="stat-label">Total Reservations</div>
+            <div className="stat-label">{t('dashboard.totalReservations')}</div>
           </div>
         </div>
 
@@ -98,41 +91,41 @@ function Dashboard() {
           <div className="stat-icon">👥</div>
           <div className="stat-content">
             <div className="stat-value">{loading ? '...' : stats.totalCustomers.toLocaleString()}</div>
-            <div className="stat-label">Total Customers</div>
+            <div className="stat-label">{t('dashboard.totalCustomers')}</div>
           </div>
         </div>
 
         <div className="stat-card">
-          <div className="stat-icon">📅</div>
+          <div className="stat-icon">🛩️</div>
           <div className="stat-content">
             <div className="stat-value">{loading ? '...' : stats.todayFlights}</div>
-            <div className="stat-label">Flights Today</div>
+            <div className="stat-label">{t('dashboard.totalAirplanes')}</div>
           </div>
         </div>
       </div>
 
       <div className="quick-actions">
-        <h2>Quick Actions</h2>
+        <h2>{t('dashboard.quickActions')}</h2>
         <div className="actions-grid">
           <a href="/flights" className="action-card">
             <span className="action-icon">✈️</span>
-            <span className="action-title">View Flights</span>
-            <span className="action-desc">Browse and manage flight schedules</span>
+            <span className="action-title">{t('dashboard.manageFlights')}</span>
+            <span className="action-desc">{t('dashboard.manageFlightsDesc')}</span>
           </a>
           <a href="/reservations" className="action-card">
             <span className="action-icon">📋</span>
-            <span className="action-title">View Reservations</span>
-            <span className="action-desc">Check booking details</span>
+            <span className="action-title">{t('dashboard.viewReservations')}</span>
+            <span className="action-desc">{t('dashboard.viewReservationsDesc')}</span>
           </a>
           <a href="/customers" className="action-card">
             <span className="action-icon">👥</span>
-            <span className="action-title">View Customers</span>
-            <span className="action-desc">Customer information</span>
+            <span className="action-title">{t('dashboard.customerData')}</span>
+            <span className="action-desc">{t('dashboard.customerDataDesc')}</span>
           </a>
           <a href="/airplanes" className="action-card">
             <span className="action-icon">🛩️</span>
-            <span className="action-title">View Fleet</span>
-            <span className="action-desc">Aircraft inventory</span>
+            <span className="action-title">{t('nav.airplanes')}</span>
+            <span className="action-desc">{t('dashboard.totalAirplanes')}</span>
           </a>
         </div>
       </div>

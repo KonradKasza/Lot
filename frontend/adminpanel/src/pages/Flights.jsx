@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useAuth } from '../context/AuthContext'
 import { flightService } from '../services/authService'
 import DataTable from '../components/DataTable'
@@ -6,6 +7,7 @@ import Pagination from '../components/Pagination'
 import './PageStyles.css'
 
 function Flights() {
+  const { t } = useTranslation()
   const { canEdit, canDelete } = useAuth()
   const [flights, setFlights] = useState([])
   const [loading, setLoading] = useState(true)
@@ -122,12 +124,12 @@ function Flights() {
       loadFlights()
     } catch (error) {
       console.error('Failed to add flight:', error)
-      alert('Failed to add flight')
+      alert(t('common.errorOccurred'))
     }
   }
 
   const handleDelete = async (flight) => {
-    if (!window.confirm(`Are you sure you want to delete flight LO${flight.flightNumber}?`)) {
+    if (!window.confirm(t('common.confirmDelete'))) {
       return
     }
     try {
@@ -136,58 +138,58 @@ function Flights() {
       loadFlights()
     } catch (error) {
       console.error('Failed to delete flight:', error)
-      alert('Failed to delete flight')
+      alert(t('common.errorOccurred'))
     }
   }
 
   const columns = [
     { key: 'flightId', label: 'ID', width: '60px' },
-    { key: 'flightNumber', label: 'Flight #', width: '80px' },
-    { key: 'flightDate', label: 'Date', width: '100px' },
-    { key: 'startAirport', label: 'From', width: '70px' },
-    { key: 'endAirport', label: 'To', width: '70px' },
+    { key: 'flightNumber', label: t('flights.flightNumber'), width: '80px' },
+    { key: 'flightDate', label: t('flights.departureTime').split(' ')[0], width: '100px' },
+    { key: 'startAirport', label: t('flights.origin'), width: '70px' },
+    { key: 'endAirport', label: t('flights.destination'), width: '70px' },
     { 
       key: 'scheduledDeparture', 
-      label: 'Departure', 
+      label: t('flights.departure'), 
       width: '90px',
       render: (val) => formatTime(val)
     },
     { 
       key: 'scheduledArrival', 
-      label: 'Arrival', 
+      label: t('flights.arrival'), 
       width: '90px',
       render: (val) => formatTime(val)
     },
     { 
       key: 'cancellationStatus', 
-      label: 'Status', 
+      label: t('flights.status'), 
       width: '100px',
       render: (val) => (
         <span className={`status-badge ${val === 0 ? 'status-active' : 'status-cancelled'}`}>
-          {val === 0 ? 'Active' : 'Cancelled'}
+          {val === 0 ? t('flights.statuses.SCHEDULED') : t('flights.statuses.CANCELLED')}
         </span>
       )
     },
     { 
       key: 'samolotId', 
-      label: 'Aircraft', 
+      label: t('flights.airplane'), 
       width: '100px',
       render: (val) => val ? val.substring(0, 8) + '...' : '-'
     },
     {
       key: 'actions',
-      label: 'Actions',
+      label: t('common.actions'),
       width: '150px',
       render: (_, flight) => (
         <div className="action-buttons" onClick={(e) => e.stopPropagation()}>
           {canEdit() && (
             <button className="btn btn-sm btn-secondary" onClick={() => handleEdit(flight)}>
-              Edit
+              {t('common.edit')}
             </button>
           )}
           {canDelete() && (
             <button className="btn btn-sm btn-danger" onClick={() => handleDelete(flight)}>
-              Delete
+              {t('common.delete')}
             </button>
           )}
         </div>
@@ -199,11 +201,11 @@ function Flights() {
     <div className="page-container">
       <div className="page-header">
         <div>
-          <h1>Flights</h1>
-          <p>{totalItems.toLocaleString()} flights total</p>
+          <h1>{t('flights.title')}</h1>
+          <p>{totalItems.toLocaleString()} {t('common.results')}</p>
         </div>
         {canEdit() && (
-          <button className="btn btn-primary" onClick={() => setShowAddModal(true)}>+ Add Flight</button>
+          <button className="btn btn-primary" onClick={() => setShowAddModal(true)}>+ {t('flights.addFlight')}</button>
         )}
       </div>
 

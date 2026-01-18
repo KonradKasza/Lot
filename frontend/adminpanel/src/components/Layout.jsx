@@ -1,14 +1,20 @@
 import { Outlet, NavLink, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { useAuth } from '../context/AuthContext'
 import './Layout.css'
 
 function Layout() {
+  const { t, i18n } = useTranslation()
   const { user, logout, isAdmin } = useAuth()
   const navigate = useNavigate()
 
   const handleLogout = () => {
     logout()
     navigate('/login')
+  }
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng)
   }
 
   const getRoleBadgeClass = (role) => {
@@ -25,49 +31,64 @@ function Layout() {
       <aside className="sidebar">
         <div className="sidebar-header">
           <h1>LOT Admin</h1>
-          <span className="subtitle">Management Panel</span>
+          <span className="subtitle">{t('nav.managementPanel')}</span>
+        </div>
+
+        <div className="language-switcher">
+          <button 
+            className={`lang-btn ${i18n.language === 'en' ? 'active' : ''}`}
+            onClick={() => changeLanguage('en')}
+          >
+            EN
+          </button>
+          <button 
+            className={`lang-btn ${i18n.language === 'pl' ? 'active' : ''}`}
+            onClick={() => changeLanguage('pl')}
+          >
+            PL
+          </button>
         </div>
 
         <nav className="sidebar-nav">
           <NavLink to="/dashboard" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
             <span className="nav-icon"></span>
-            Dashboard
+            {t('nav.dashboard')}
           </NavLink>
           <NavLink to="/flights" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
             <span className="nav-icon"></span>
-            Flights
+            {t('nav.flights')}
           </NavLink>
           <NavLink to="/reservations" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
             <span className="nav-icon"></span>
-            Reservations
+            {t('nav.reservations')}
           </NavLink>
           <NavLink to="/customers" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
             <span className="nav-icon"></span>
-            Customers
+            {t('nav.customers')}
           </NavLink>
           <NavLink to="/airplanes" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
             <span className="nav-icon"></span>
-            Airplanes
+            {t('nav.airplanes')}
           </NavLink>
           <NavLink to="/crews" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
             <span className="nav-icon"></span>
-            Crews
+            {t('nav.crews')}
           </NavLink>
           <NavLink to="/crew-members" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
             <span className="nav-icon"></span>
-            Crew Members
+            {t('nav.crewMembers')}
           </NavLink>
           
           {isAdmin() && (
             <>
-              <div className="nav-divider">Admin Only</div>
+              <div className="nav-divider">{t('nav.adminOnly')}</div>
               <NavLink to="/airports" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
                 <span className="nav-icon"></span>
-                Airports
+                {t('nav.airports')}
               </NavLink>
               <NavLink to="/admin-users" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
                 <span className="nav-icon"></span>
-                Admin Users
+                {t('nav.adminUsers')}
               </NavLink>
             </>
           )}
@@ -82,7 +103,7 @@ function Layout() {
             </span>
           </div>
           <button onClick={handleLogout} className="logout-btn">
-            Logout
+            {t('nav.logout')}
           </button>
         </div>
       </aside>
