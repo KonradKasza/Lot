@@ -64,6 +64,7 @@ def clear_tables(cursor):
     tables = [
         'payment',
         'reservation',
+        'passenger',
         'complaint',
         'flight',
         'crew_member',
@@ -72,10 +73,14 @@ def clear_tables(cursor):
         'customer',
         'fare',
         'airplane',
-        'airport'
+        'airport',
+        'admin_account'
     ]
     for table in tables:
-        cursor.execute(f'TRUNCATE TABLE {table} CASCADE')
+        try:
+            cursor.execute(f'TRUNCATE TABLE {table} CASCADE')
+        except Exception as e:
+            print(f"  Note: Table {table} may not exist yet: {e}")
     print("All tables cleared.")
 
 
@@ -385,6 +390,94 @@ def generate_customer_accounts(cursor, customer_ids):
     return [a[0] for a in accounts]  # Return account IDs
 
 
+def generate_admin_accounts(cursor):
+    """Generate admin account data with different roles."""
+    admins = []
+    now = datetime.now()
+    
+    # Pre-hash passwords
+    worker_password = hash_password('worker123')
+    manager_password = hash_password('manager123')
+    admin_password = hash_password('admin123')
+    
+    # Create admin accounts for each role
+    admins.append((
+        'worker',
+        'worker@lot.com',
+        worker_password,
+        'Jan',
+        'Kowalski',
+        'WORKER',
+        True,
+        now,
+        None,
+        None
+    ))
+    
+    admins.append((
+        'manager',
+        'manager@lot.com',
+        manager_password,
+        'Anna',
+        'Nowak',
+        'MANAGER',
+        True,
+        now,
+        None,
+        None
+    ))
+    
+    admins.append((
+        'superadmin',
+        'superadmin@lot.com',
+        admin_password,
+        'Piotr',
+        'Wiśniewski',
+        'ADMIN',
+        True,
+        now,
+        None,
+        None
+    ))
+    
+    # Additional test accounts
+    admins.append((
+        'worker2',
+        'worker2@lot.com',
+        worker_password,
+        'Maria',
+        'Zielińska',
+        'WORKER',
+        True,
+        now,
+        None,
+        None
+    ))
+    
+    admins.append((
+        'manager2',
+        'manager2@lot.com',
+        manager_password,
+        'Tomasz',
+        'Lewandowski',
+        'MANAGER',
+        True,
+        now,
+        None,
+        None
+    ))
+    
+    insert_query = """
+        INSERT INTO admin_account (username, email, password_hash, first_name, last_name, role, is_active, created_at, last_login, created_by)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+    """
+    cursor.executemany(insert_query, admins)
+    print(f"Generated {len(admins)} admin accounts.")
+    print("  - Worker: worker@lot.com / worker123")
+    print("  - Manager: manager@lot.com / manager123")
+    print("  - Admin: superadmin@lot.com / admin123")
+
+
 def generate_fares(cursor):
     """Generate fare/tariff data."""
     fares = [
@@ -601,6 +694,40 @@ def generate_payments(cursor, reservation_ids, payments_range):
     print(f"Generated {len(payments)} payments.")
 
 
+def reset_sequences(cursor):
+    """Reset all sequences to match the max IDs in their respective tables."""
+    print("\nResetting database sequences...")
+    
+    # List of (table_name, column_name) tuples for tables with sequences
+    sequence_tables = [
+        ('reservation', 'reservation_id'),
+        ('flight', 'flight_id'),
+        ('payment', 'payment_id'),
+        ('crew', 'crew_id'),
+        ('crew_member', 'crew_member_id'),
+        ('fare', 'fare_id'),
+        ('admin_account', 'admin_id'),
+        ('passenger', 'passenger_id'),
+    ]
+    
+    for table, column in sequence_tables:
+        try:
+            # Get the sequence name
+            cursor.execute(f"SELECT pg_get_serial_sequence('{table}', '{column}')")
+            result = cursor.fetchone()
+            if result and result[0]:
+                seq_name = result[0]
+                # Set sequence to max value + 1
+                cursor.execute(f"""
+                    SELECT setval('{seq_name}', COALESCE((SELECT MAX({column}) FROM {table}), 0) + 1, false)
+                """)
+                print(f"  Reset sequence for {table}.{column}")
+        except Exception as e:
+            print(f"  Warning: Could not reset sequence for {table}.{column}: {e}")
+    
+    print("Sequences reset completed.")
+
+
 def main():
     """Main function to generate all test data."""
     print("Starting data generation...")
@@ -626,6 +753,7 @@ def main():
         customer_ids = generate_customers(cursor, CONFIG['customers'])
         account_ids = generate_customer_accounts(cursor, customer_ids)
         fare_ids = generate_fares(cursor)
+        generate_admin_accounts(cursor)  # Generate admin accounts
         conn.commit()
         
         print("\n2. Generating flights...")
@@ -642,6 +770,11 @@ def main():
         
         print("\n5. Generating payments...")
         generate_payments(cursor, reservation_ids, CONFIG['payments_per_reservation'])
+        conn.commit()
+        
+        # Reset sequences to match the data
+        print("\n6. Resetting sequences...")
+        reset_sequences(cursor)
         conn.commit()
         
         print("\n" + "=" * 50)

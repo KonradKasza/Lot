@@ -181,7 +181,7 @@ public class BookingService {
         response.setTicketNumber(reservation.getTicketNumber());
 
         // Get passenger info from database
-        passengerRepository.findByReservationId(reservation.getReservationId()).ifPresent(passenger -> {
+        passengerRepository.findFirstByReservationId(reservation.getReservationId()).ifPresent(passenger -> {
             response.setPassengerName(passenger.getPassengerName());
             response.setPassengerEmail(passenger.getPassengerEmail());
             response.setPassengerPhone(passenger.getPassengerPhone());

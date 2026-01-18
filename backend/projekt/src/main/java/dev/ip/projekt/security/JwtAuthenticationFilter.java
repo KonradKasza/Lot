@@ -5,9 +5,11 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -22,7 +24,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private JwtUtils jwtUtils;
 
     @Autowired
-    private CustomUserDetailsService userDetailsService;
+    private CustomUserDetailsService customerUserDetailsService;
+
+    @Autowired
+    @Qualifier("adminUserDetailsService")
+    private UserDetailsService adminUserDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -32,8 +38,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String jwt = parseJwt(request);
             if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
                 String email = jwtUtils.getEmailFromJwtToken(jwt);
-
-                UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+                
+                // Check if this is an admin token or customer token
+                UserDetails userDetails;
+                if (jwtUtils.isAdminToken(jwt)) {
+                    // Use admin user details service for admin tokens
+                    userDetails = adminUserDetailsService.loadUserByUsername(email);
+                } else {
+                    // Use customer user details service for customer tokens
+                    userDetails = customerUserDetailsService.loadUserByUsername(email);
+                }
+                
                 UsernamePasswordAuthenticationToken authentication = 
                         new UsernamePasswordAuthenticationToken(
                                 userDetails, 

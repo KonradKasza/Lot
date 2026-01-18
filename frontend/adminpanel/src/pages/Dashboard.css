@@ -1,0 +1,159 @@
+.dashboard {
+  max-width: 1100px;
+}
+
+.dashboard-header {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.dashboard-header h1 {
+  font-size: 20px;
+  margin: 0 0 5px 0;
+  color: #333;
+  text-transform: uppercase;
+}
+
+.dashboard-header p {
+  color: #666;
+  font-size: 12px;
+  margin: 0;
+}
+
+.role-info-card {
+  background: linear-gradient(to bottom, #5a6a7a, #4a5a6a);
+  color: white;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  border: 1px solid #3a4a5a;
+}
+
+.role-info-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.role-badge {
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.badge-admin {
+  background: #c44;
+}
+
+.badge-manager {
+  background: #da3;
+  color: #333;
+}
+
+.badge-worker {
+  background: #48a;
+}
+
+.role-title {
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.role-description {
+  opacity: 0.9;
+  font-size: 12px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 4px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+}
+
+.stat-icon {
+  font-size: 24px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f0f0;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.stat-value {
+  font-size: 22px;
+  font-weight: bold;
+  color: #2c5282;
+}
+
+.stat-label {
+  color: #666;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.quick-actions h2 {
+  font-size: 14px;
+  margin-bottom: 12px;
+  color: #333;
+  text-transform: uppercase;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.action-card {
+  background: white;
+  border-radius: 4px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  transition: all 0.15s;
+  text-decoration: none;
+}
+
+.action-card:hover {
+  border-color: #5a8dc5;
+  background: #f8f9fa;
+}
+
+.action-icon {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.action-title {
+  font-weight: bold;
+  color: #2c5282;
+  margin-bottom: 4px;
+  font-size: 12px;
+}
+
+.action-desc {
+  font-size: 11px;
+  color: #666;
+}

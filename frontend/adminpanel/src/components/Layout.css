@@ -1,0 +1,152 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Classic Sidebar */
+.sidebar {
+  width: 220px;
+  background: linear-gradient(to bottom, #3c3c3c 0%, #222 100%);
+  color: #ccc;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+  border-right: 1px solid #111;
+}
+
+.sidebar-header {
+  padding: 15px;
+  background: #1a1a1a;
+  border-bottom: 1px solid #444;
+}
+
+.sidebar-header h1 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.sidebar-header .subtitle {
+  font-size: 11px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 10px 0;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  color: #aaa;
+  font-size: 13px;
+  border-left: 3px solid transparent;
+  transition: background 0.15s, color 0.15s;
+}
+
+.nav-item:hover {
+  background: #2a2a2a;
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav-item.active {
+  background: #2a2a2a;
+  color: #fff;
+  border-left-color: #3498db;
+}
+
+.nav-icon {
+  margin-right: 10px;
+  font-size: 14px;
+  width: 20px;
+  text-align: center;
+}
+
+.nav-divider {
+  padding: 12px 15px 6px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #666;
+  border-top: 1px solid #333;
+  margin-top: 5px;
+}
+
+.sidebar-footer {
+  padding: 12px 15px;
+  border-top: 1px solid #444;
+  background: #1a1a1a;
+}
+
+.user-info {
+  margin-bottom: 10px;
+}
+
+.user-name {
+  font-weight: bold;
+  font-size: 13px;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.user-email {
+  font-size: 11px;
+  color: #888;
+  margin-bottom: 6px;
+}
+
+.role-badge {
+  display: inline-block;
+  padding: 2px 6px;
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-admin {
+  background: #c0392b;
+  color: white;
+}
+
+.badge-manager {
+  background: #f39c12;
+  color: #222;
+}
+
+.badge-worker {
+  background: #2980b9;
+  color: white;
+}
+
+.logout-btn {
+  width: 100%;
+  padding: 8px 12px;
+  background: #444;
+  border: 1px solid #555;
+  color: #ccc;
+  font-size: 12px;
+  font-weight: bold;
+  transition: background 0.15s;
+}
+
+.logout-btn:hover {
+  background: #555;
+  color: #fff;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  margin-left: 220px;
+  padding: 20px;
+  min-height: 100vh;
+}

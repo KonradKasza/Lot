@@ -25,6 +25,22 @@ public class JwtUtils {
         return Jwts.builder()
                 .setSubject(email)
                 .claim("accountId", accountId)
+                .claim("type", "customer")
+                .setIssuedAt(new Date())
+                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .compact();
+    }
+
+    /**
+     * Generate JWT token for admin users with role information
+     */
+    public String generateAdminJwtToken(String email, Long adminId, String role) {
+        return Jwts.builder()
+                .setSubject(email)
+                .claim("adminId", adminId)
+                .claim("role", role)
+                .claim("type", "admin")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
@@ -47,6 +63,50 @@ public class JwtUtils {
                 .parseClaimsJws(token)
                 .getBody()
                 .get("accountId", String.class);
+    }
+
+    /**
+     * Get admin ID from JWT token
+     */
+    public Long getAdminIdFromJwtToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .get("adminId", Long.class);
+    }
+
+    /**
+     * Get role from JWT token
+     */
+    public String getRoleFromJwtToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .get("role", String.class);
+    }
+
+    /**
+     * Get token type (customer or admin)
+     */
+    public String getTokenType(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .get("type", String.class);
+    }
+
+    /**
+     * Check if token is an admin token
+     */
+    public boolean isAdminToken(String token) {
+        String type = getTokenType(token);
+        return "admin".equals(type);
     }
 
     public boolean validateJwtToken(String authToken) {
