@@ -98,9 +98,12 @@ function FlightSearchPage() {
         setAvailableDates([]);
         setDepartureDate('');
         
+        if (!airportId) return;
+        
         setIsLoadingDates(true);
         try {
-            const dates = await getAvailableDates(departureAirport);
+            // Get dates for the specific route (departure -> arrival)
+            const dates = await getAvailableDates(departureAirport, airportId);
             setAvailableDates(dates);
         } catch (err) {
             console.error('Error fetching dates:', err);

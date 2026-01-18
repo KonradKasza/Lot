@@ -90,6 +90,30 @@ export async function getDatesByStartAirport(airportId) {
 }
 
 /**
+ * Get available dates for a specific route (departure to arrival)
+ * Returns only dates where flights exist for that exact route
+ */
+export async function getAvailableDates(departureAirportId, arrivalAirportId = null) {
+    try {
+        let url = `${API_BASE_URL}/dates?from=${departureAirportId}`;
+        if (arrivalAirportId) {
+            url += `&to=${arrivalAirportId}`;
+        }
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            throw new Error('Failed to fetch available dates');
+        }
+        
+        const dates = await response.json();
+        return dates;
+    } catch (error) {
+        console.error('Error fetching available dates:', error);
+        throw error;
+    }
+}
+
+/**
  * Search for flights
  * Used by FlightSearch component
  */
@@ -213,13 +237,6 @@ export async function getDestinationAirports(departureAirportId) {
         console.error('Error fetching destination airports:', error);
         throw error;
     }
-}
-
-/**
- * Get available dates for flights from a departure airport
- */
-export async function getAvailableDates(departureAirportId) {
-    return getDatesByStartAirport(departureAirportId);
 }
 
 /**

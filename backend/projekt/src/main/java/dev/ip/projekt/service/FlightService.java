@@ -104,6 +104,14 @@ public class FlightService {
     }
 
     /**
+     * Get available dates for a specific route (departure to arrival)
+     */
+    public List<LocalDate> getAvailableDatesForRoute(String departureAirportId, String arrivalAirportId) {
+        LocalDate today = LocalDate.now();
+        return flightRepository.findAvailableDatesByRoute(departureAirportId, arrivalAirportId, today);
+    }
+
+    /**
      * Search for flights
      */
     public FlightSearchResponseDTO searchFlights(String departureAirportId, String arrivalAirportId, LocalDate departureDate) {

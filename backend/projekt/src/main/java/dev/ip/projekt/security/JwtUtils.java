@@ -2,10 +2,12 @@ package dev.ip.projekt.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
+import java.util.Base64;
 import java.util.Date;
 
 @Component
@@ -17,8 +19,33 @@ public class JwtUtils {
     @Value("${jwt.expirationMs}")
     private int jwtExpirationMs;
 
+    private Key key;
+
+    @PostConstruct
+    public void init() {
+        // Support both Base64-encoded and raw secrets
+        try {
+            byte[] keyBytes = Base64.getDecoder().decode(jwtSecret);
+            key = Keys.hmacShaKeyFor(keyBytes);
+        } catch (IllegalArgumentException e) {
+            // Fallback to raw bytes if not valid Base64
+            key = Keys.hmacShaKeyFor(jwtSecret.getBytes());
+        }
+    }
+
     private Key getSigningKey() {
-        return Keys.hmacShaKeyFor(jwtSecret.getBytes());
+        return key;
+    }
+
+    /**
+     * Parse token and return all claims
+     */
+    public Claims parseToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 
     public String generateJwtToken(String email, String accountId) {
@@ -48,57 +75,32 @@ public class JwtUtils {
     }
 
     public String getEmailFromJwtToken(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(getSigningKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
+        return parseToken(token).getSubject();
     }
 
     public String getAccountIdFromJwtToken(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(getSigningKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
-                .get("accountId", String.class);
+        return parseToken(token).get("accountId", String.class);
     }
 
     /**
      * Get admin ID from JWT token
      */
     public Long getAdminIdFromJwtToken(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(getSigningKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
-                .get("adminId", Long.class);
+        return parseToken(token).get("adminId", Long.class);
     }
 
     /**
      * Get role from JWT token
      */
     public String getRoleFromJwtToken(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(getSigningKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
-                .get("role", String.class);
+        return parseToken(token).get("role", String.class);
     }
 
     /**
      * Get token type (customer or admin)
      */
     public String getTokenType(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(getSigningKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
-                .get("type", String.class);
+        return parseToken(token).get("type", String.class);
     }
 
     /**

@@ -25,15 +25,15 @@ DB_CONFIG = {
 
 # Configuration for number of records to generate
 CONFIG = {
-    'airplanes': 50,
+    'airplanes': 90,
     'airports': 52,  # We have 52 real US airports
-    'crews': 30,
+    'crews': 450,
     'crew_members_per_crew': (3, 8),  # min, max
-    'customers': 500,
+    'customers': 3822,
     'fares': 5,
-    'flights': 1000,
+    'flights': 5213,
     'complaints': 100,
-    'reservations': 2000,
+    'reservations': 62132,
     'payments_per_reservation': (0, 2),  # min, max
 }
 
@@ -506,8 +506,8 @@ def generate_flights(cursor, count, airport_ids, airplane_ids, crew_ids):
         start_airport = random.choice(airport_ids)
         end_airport = random.choice([a for a in airport_ids if a != start_airport])
         
-        # Generate mostly future flights for testing
-        flight_date = fake.date_between(start_date='today', end_date='+6m')
+        # Generate mostly future flights for testing (180 days ≈ 6 months)
+        flight_date = fake.date_between(start_date='today', end_date='+180d')
         
         # Times in minutes from midnight
         scheduled_departure = random.randint(300, 1380)  # 5:00 - 23:00

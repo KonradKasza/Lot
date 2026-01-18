@@ -22,6 +22,9 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
     @Query("SELECT DISTINCT f.flightDate FROM Flight f WHERE f.startAirport = :startAirport AND f.cancellationStatus = 0 AND f.flightDate >= :fromDate ORDER BY f.flightDate")
     List<LocalDate> findAvailableDatesByStartAirport(@Param("startAirport") String startAirport, @Param("fromDate") LocalDate fromDate);
     
+    @Query("SELECT DISTINCT f.flightDate FROM Flight f WHERE f.startAirport = :startAirport AND f.endAirport = :endAirport AND f.cancellationStatus = 0 AND f.flightDate >= :fromDate ORDER BY f.flightDate")
+    List<LocalDate> findAvailableDatesByRoute(@Param("startAirport") String startAirport, @Param("endAirport") String endAirport, @Param("fromDate") LocalDate fromDate);
+    
     @Query("SELECT DISTINCT f.startAirport FROM Flight f WHERE f.cancellationStatus = 0 AND f.flightDate >= :fromDate")
     List<String> findAirportsWithDepartures(@Param("fromDate") LocalDate fromDate);
     

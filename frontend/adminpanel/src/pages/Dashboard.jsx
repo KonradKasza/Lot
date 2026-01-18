@@ -7,10 +7,9 @@ function Dashboard() {
   const { t } = useTranslation()
   const { user } = useAuth()
   const [stats, setStats] = useState({
-    totalFlights: 0,
-    totalReservations: 0,
-    totalCustomers: 0,
-    todayFlights: 0,
+    flights: 0,
+    reservations: 0,
+    customers: 0,
   })
   const [loading, setLoading] = useState(true)
 
@@ -20,7 +19,6 @@ function Dashboard() {
 
   const loadStats = async () => {
     try {
-      // Simple stats from existing endpoints
       const token = localStorage.getItem('adminToken')
       const headers = { Authorization: `Bearer ${token}` }
 
@@ -37,98 +35,44 @@ function Dashboard() {
       ])
 
       setStats({
-        totalFlights: flights.totalItems || 0,
-        totalReservations: reservations.totalItems || 0,
-        totalCustomers: customers.totalItems || 0,
-        todayFlights: Math.floor(Math.random() * 50) + 10, // Placeholder
+        flights: flights.totalItems || 0,
+        reservations: reservations.totalItems || 0,
+        customers: customers.totalItems || 0,
       })
     } catch (error) {
-      console.error('Failed to load stats:', error)
+      console.error('Error:', error)
     } finally {
       setLoading(false)
     }
   }
 
-  const getRoleDescription = (role) => {
-    return t(`dashboard.roleDescriptions.${role}`)
-  }
-
   return (
     <div className="dashboard">
-      <div className="dashboard-header">
-        <h1>{t('dashboard.title')}</h1>
-        <p>{t('dashboard.welcome')}, {user?.fullName || user?.username}!</p>
-      </div>
+      <h1>Dashboard</h1>
+      <p>Witaj, {user?.fullName || user?.username}! Rola: {user?.role}</p>
 
-      <div className="role-info-card">
-        <div className="role-info-header">
-          <span className={`role-badge badge-${user?.role?.toLowerCase()}`}>
-            {user?.role}
-          </span>
-          <span className="role-title">{t('dashboard.yourRole')}</span>
+      <div className="stats-row">
+        <div className="stat-box">
+          <div className="number">{loading ? '...' : stats.flights}</div>
+          <div className="label">Loty</div>
         </div>
-        <p className="role-description">{getRoleDescription(user?.role)}</p>
-      </div>
-
-      <div className="stats-grid">
-        <div className="stat-card">
-          <div className="stat-icon">✈️</div>
-          <div className="stat-content">
-            <div className="stat-value">{loading ? '...' : stats.totalFlights.toLocaleString()}</div>
-            <div className="stat-label">{t('dashboard.totalFlights')}</div>
-          </div>
+        <div className="stat-box">
+          <div className="number">{loading ? '...' : stats.reservations}</div>
+          <div className="label">Rezerwacje</div>
         </div>
-
-        <div className="stat-card">
-          <div className="stat-icon">📋</div>
-          <div className="stat-content">
-            <div className="stat-value">{loading ? '...' : stats.totalReservations.toLocaleString()}</div>
-            <div className="stat-label">{t('dashboard.totalReservations')}</div>
-          </div>
-        </div>
-
-        <div className="stat-card">
-          <div className="stat-icon">👥</div>
-          <div className="stat-content">
-            <div className="stat-value">{loading ? '...' : stats.totalCustomers.toLocaleString()}</div>
-            <div className="stat-label">{t('dashboard.totalCustomers')}</div>
-          </div>
-        </div>
-
-        <div className="stat-card">
-          <div className="stat-icon">🛩️</div>
-          <div className="stat-content">
-            <div className="stat-value">{loading ? '...' : stats.todayFlights}</div>
-            <div className="stat-label">{t('dashboard.totalAirplanes')}</div>
-          </div>
+        <div className="stat-box">
+          <div className="number">{loading ? '...' : stats.customers}</div>
+          <div className="label">Klienci</div>
         </div>
       </div>
 
-      <div className="quick-actions">
-        <h2>{t('dashboard.quickActions')}</h2>
-        <div className="actions-grid">
-          <a href="/flights" className="action-card">
-            <span className="action-icon">✈️</span>
-            <span className="action-title">{t('dashboard.manageFlights')}</span>
-            <span className="action-desc">{t('dashboard.manageFlightsDesc')}</span>
-          </a>
-          <a href="/reservations" className="action-card">
-            <span className="action-icon">📋</span>
-            <span className="action-title">{t('dashboard.viewReservations')}</span>
-            <span className="action-desc">{t('dashboard.viewReservationsDesc')}</span>
-          </a>
-          <a href="/customers" className="action-card">
-            <span className="action-icon">👥</span>
-            <span className="action-title">{t('dashboard.customerData')}</span>
-            <span className="action-desc">{t('dashboard.customerDataDesc')}</span>
-          </a>
-          <a href="/airplanes" className="action-card">
-            <span className="action-icon">🛩️</span>
-            <span className="action-title">{t('nav.airplanes')}</span>
-            <span className="action-desc">{t('dashboard.totalAirplanes')}</span>
-          </a>
-        </div>
-      </div>
+      <h3 className="section-title">Szybkie linki</h3>
+      <ul className="links-list">
+        <li><a href="/flights">Zarządzaj lotami</a></li>
+        <li><a href="/reservations">Zobacz rezerwacje</a></li>
+        <li><a href="/customers">Lista klientów</a></li>
+        <li><a href="/airplanes">Samoloty</a></li>
+      </ul>
     </div>
   )
 }

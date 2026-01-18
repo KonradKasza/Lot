@@ -57,8 +57,16 @@ public class FlightController {
      */
     @GetMapping("/dates")
     public ResponseEntity<List<LocalDate>> getAvailableDates(
-            @RequestParam("from") String departureAirportId) {
-        List<LocalDate> dates = flightService.getAvailableDates(departureAirportId);
+            @RequestParam("from") String departureAirportId,
+            @RequestParam(value = "to", required = false) String arrivalAirportId) {
+        List<LocalDate> dates;
+        if (arrivalAirportId != null && !arrivalAirportId.isEmpty()) {
+            // Get dates for specific route
+            dates = flightService.getAvailableDatesForRoute(departureAirportId, arrivalAirportId);
+        } else {
+            // Get all dates from departure airport
+            dates = flightService.getAvailableDates(departureAirportId);
+        }
         return ResponseEntity.ok(dates);
     }
 

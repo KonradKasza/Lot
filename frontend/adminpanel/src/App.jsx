@@ -1,5 +1,4 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Flights from './pages/Flights'
@@ -8,14 +7,12 @@ import Customers from './pages/Customers'
 import Airplanes from './pages/Airplanes'
 import Airports from './pages/Airports'
 import AdminUsers from './pages/AdminUsers'
-import Crews from './pages/Crews'
-import CrewMembers from './pages/CrewMembers'
 import Layout from './components/Layout'
 import { AuthProvider, useAuth } from './context/AuthContext'
 import './App.css'
 
 function ProtectedRoute({ children, requiredRole }) {
-  const { user, isAuthenticated, hasRole } = useAuth()
+  const { isAuthenticated, hasRole } = useAuth()
   
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />
@@ -48,8 +45,6 @@ function AppRoutes() {
         <Route path="reservations" element={<Reservations />} />
         <Route path="customers" element={<Customers />} />
         <Route path="airplanes" element={<Airplanes />} />
-        <Route path="crews" element={<Crews />} />
-        <Route path="crew-members" element={<CrewMembers />} />
         <Route path="airports" element={
           <ProtectedRoute requiredRole="ADMIN">
             <Airports />
